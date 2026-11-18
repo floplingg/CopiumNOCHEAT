@@ -1,0 +1,36 @@
+package dev.violet.event.impl;
+
+import dev.violet.event.CancellableEvent;
+import dev.violet.event.PooledCancellableEventType;
+import net.minecraft.class_2596;
+
+public final class PacketReceiveNettyEvent extends CancellableEvent {
+   public static final PooledCancellableEventType<PacketReceiveNettyEvent> TYPE = new PooledCancellableEventType<>(
+      "PacketReceiveNettyEvent", PacketReceiveNettyEvent::new, 1024
+   );
+   public class_2596<?> packet;
+
+   private PacketReceiveNettyEvent() {
+   }
+
+   public static boolean dispatchSync(class_2596<?> packet) {
+      if (!TYPE.hasPreListeners()) {
+         return false;
+      } else {
+         PacketReceiveNettyEvent event = TYPE.pool.acquire();
+         event.packet = packet;
+         event.resetCancellation();
+
+         boolean var2;
+         try {
+            TYPE.dispatch(event);
+            var2 = event.isCancelled();
+         } finally {
+            event.packet = null;
+            TYPE.pool.release(event);
+         }
+
+         return var2;
+      }
+   }
+}

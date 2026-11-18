@@ -1,0 +1,125 @@
+{
+  "menu_theme": {
+    "sounds": [
+      {
+        "name": "violet:menu_theme",
+        "stream": true
+      }
+    ]
+  },
+  "ui.silk_nav": {
+    "sounds": [
+      "violet:ui/silk_nav"
+    ]
+  },
+  "ui.silk_on": {
+    "sounds": [
+      "violet:ui/silk_on"
+    ]
+  },
+  "ui.silk_off": {
+    "sounds": [
+      "violet:ui/silk_off"
+    ]
+  },
+  "ui.silk_type": {
+    "sounds": [
+      "violet:ui/silk_type"
+    ]
+  },
+  "ui.silk_select": {
+    "sounds": [
+      "violet:ui/silk_select"
+    ]
+  },
+  "ui.silk_hover": {
+    "sounds": [
+      "violet:ui/silk_hover"
+    ]
+  },
+  "ui.silk_open": {
+    "sounds": [
+      "violet:ui/silk_open"
+    ]
+  },
+  "ui.silk_close": {
+    "sounds": [
+      "violet:ui/silk_close"
+    ]
+  },
+  "ui.glide_open": {
+    "sounds": [
+      "violet:ui/glide_open"
+    ]
+  },
+  "ui.glide_close": {
+    "sounds": [
+      "violet:ui/glide_close"
+    ]
+  },
+  "ui.glide_on": {
+    "sounds": [
+      "violet:ui/glide_on"
+    ]
+  },
+  "ui.glide_off": {
+    "sounds": [
+      "violet:ui/glide_off"
+    ]
+  },
+  "ui.glide_type": {
+    "sounds": [
+      "violet:ui/glide_type"
+    ]
+  },
+  "ui.glide_click": {
+    "sounds": [
+      "violet:ui/glide_click"
+    ]
+  },
+  "ui.glide_check_on": {
+    "sounds": [
+      "violet:ui/glide_check_on"
+    ]
+  },
+  "ui.glide_check_off": {
+    "sounds": [
+      "violet:ui/glide_check_off"
+    ]
+  },
+  "ui.glide_hover": {
+    "sounds": [
+      "violet:ui/glide_hover"
+    ]
+  },
+  "ui.pulse_on": {
+    "sounds": [
+      "violet:ui/pulse_on"
+    ]
+  },
+  "ui.pulse_off": {
+    "sounds": [
+      "violet:ui/pulse_off"
+    ]
+  },
+  "ui.pulse_swish": {
+    "sounds": [
+      "violet:ui/pulse_swish"
+    ]
+  },
+  "ui.pulse_open": {
+    "sounds": [
+      "violet:ui/pulse_open"
+    ]
+  },
+  "ui.pulse_close": {
+    "sounds": [
+      "violet:ui/pulse_close"
+    ]
+  },
+  "ui.pulse_check": {
+    "sounds": [
+      "violet:ui/pulse_check"
+    ]
+  }
+}
