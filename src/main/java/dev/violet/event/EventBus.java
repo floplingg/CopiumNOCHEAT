@@ -116,7 +116,11 @@ public final class EventBus {
                }
             }
 
-            throw failure;
+            if (failure instanceof RuntimeException runtime) {
+               throw runtime;
+            }
+
+            throw (Error)failure;
          }
 
          this.subscriptions.put(subscriber, entries);
