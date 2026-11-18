@@ -1,0 +1,75 @@
+name: Launch test
+
+# Starts the real Minecraft client with Copium on a virtual screen, waits for
+# it to reach the title screen, then checks the log for crashes and mixin errors.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "upstream/**"
+      - "README.md"
+
+jobs:
+  launch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Install virtual display and software OpenGL
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb mesa-utils libgl1-mesa-dri libglx-mesa0 pulseaudio > /dev/null
+
+      - name: Launch the client for 4 minutes
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          MESA_GL_VERSION_OVERRIDE: "4.5"
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon -q classes
+          mkdir -p run
+          echo "pauseOnLostFocus:false" > run/options.txt
+          echo "onboardAccessibility:false" >> run/options.txt
+          echo "tutorialStep:none" >> run/options.txt
+          echo "narrator:0" >> run/options.txt
+          (timeout 240 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew --no-daemon runClient > client.out 2>&1 || true)
+          echo "---- client output (tail) ----"
+          tail -n 60 client.out
+
+      - name: Check the log
+        run: |
+          LOG=run/logs/latest.log
+          test -f "$LOG" || { echo "No game log was written"; exit 1; }
+          echo "---- Copium lines ----"
+          grep -iE "copium|violet" "$LOG" | head -40 || true
+          echo "---- warnings/errors ----"
+          grep -E "\[(main|Render thread)/(WARN|ERROR)\]" "$LOG" | head -80 || true
+          FAIL=0
+          grep -q "Copium Client loaded with" "$LOG" || { echo "::error::Copium did not finish initializing"; FAIL=1; }
+          if grep -qE "Mixin apply.*failed|InvalidInjectionException|InvalidMixinException|MixinTransformerError|Critical injection failure|Reported exception thrown" "$LOG"; then
+            echo "::error::Mixin or render errors found"; FAIL=1
+          fi
+          if ls run/crash-reports/*.txt > /dev/null 2>&1; then
+            echo "::error::Crash report written"; head -n 80 run/crash-reports/*.txt; FAIL=1
+          fi
+          exit $FAIL
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: launch-logs
+          path: |
+            client.out
+            run/logs/
+            run/crash-reports/

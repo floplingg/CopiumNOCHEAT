@@ -9,6 +9,9 @@ on:
       - "README.md"
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,12 +31,36 @@ jobs:
           ./gradlew build --stacktrace 2>&1 | tee build.log
           exit ${PIPESTATUS[0]}
 
+      - name: Check the jar has no cheat code
+        run: |
+          JAR=$(ls build/libs/*.jar | grep -v sources | head -1)
+          echo "Jar: $JAR ($(du -h "$JAR" | cut -f1))"
+          unzip -l "$JAR" | tail -1
+          unzip -p "$JAR" fabric.mod.json
+          BAD="Fly|Speed\.class|Jesus|Spider|ElytraFly|BoatNoclip|Freecam|Freelook|Fullbright|ClearView|ESP|Tracers|SusChunk|AutoTotem|AutoCrystal|AimAssist|AutoClicker|AuctionSniper|PanicPay|AntiVanish|AntiCheat|StaffLive|Netherite|seedscan|XrayFeature"
+          if unzip -l "$JAR" | grep -E "dev/violet/.*($BAD)" ; then
+            echo "::error::Cheat classes found in the jar"; exit 1
+          fi
+          echo "No cheat classes in the jar."
+
       - name: Upload jar
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: copium-client
           path: build/libs/*.jar
+
+      - name: Publish as the "latest" release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          JAR=$(ls build/libs/*.jar | grep -v sources | head -1)
+          cp "$JAR" copium-client-1.21.11.jar
+          gh release delete latest --yes --cleanup-tag 2>/dev/null || true
+          gh release create latest copium-client-1.21.11.jar \
+            --title "Copium Client (latest build)" \
+            --notes "Automatic build of commit ${GITHUB_SHA::7}. Fabric 1.21.11, needs Fabric API. Visuals only, no cheats." \
+            --prerelease --target "$GITHUB_SHA"
 
       - name: Upload build log
         if: always()
