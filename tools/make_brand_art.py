@@ -179,6 +179,18 @@ def main():
         img = neon(m, (0, 0, 0, 0))
         save(img, p)
 
+    # in-menu logo and the cape logo: white tank outline on transparent
+    for p in ["textures/gui/brand.png"] + [f"textures/gui/logo_{s}.png" for s in (16, 32, 64, 128, 256, 512)]:
+        size = Image.open(os.path.join(A, p)).size
+        work = (max(size[0], 256), max(size[1], 256))
+        m = tank_mask(work, (work[0] * 0.2, work[1] * 0.06, work[0] * 0.8, work[1] * 0.94))
+        img = Image.new("RGBA", work, (0, 0, 0, 0))
+        img.alpha_composite(glow(m, max(2, work[0] // 90), (255, 255, 255), 0.8))
+        core = Image.new("RGBA", work, (255, 255, 255, 0))
+        core.putalpha(m)
+        img.alpha_composite(core)
+        save(img, p)
+
     # media hider covers (opaque RGB)
     w, h = 1774, 887
     bg = dark_bg((w, h))

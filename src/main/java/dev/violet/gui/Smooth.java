@@ -697,32 +697,32 @@ public final class Smooth {
       class_2960 cached = BRANDS.get(pixels);
       if (cached != null) {
          return cached;
-      } else {
-         label42:
-         if (brandSource != null) {
-            if (BRANDS.size() >= 12) {
-               Iterator<Entry<Integer, class_2960>> oldest = BRANDS.entrySet().iterator();
-               class_310.method_1551().method_1531().method_4615(oldest.next().getValue());
-               oldest.remove();
-            }
+      }
 
-            class_2960 id = class_2960.method_60655("violet", "dynamic/brand_" + pixels);
-            register(id, downscale(brandSource, pixels, 1.7F));
-            BRANDS.put(pixels, id);
-            return id;
-         } else if (brandFailed) {
+      if (brandSource == null) {
+         if (brandFailed) {
             return null;
-         } else {
-            try (InputStream stream = class_310.method_1551().method_1478().open(class_2960.method_60655("violet", "textures/gui/brand.png"))) {
-               brandSource = class_1011.method_4309(stream);
-               break label42;
-            } catch (Exception var7) {
-               brandFailed = true;
-               SoberClient.LOG.error("Could not load brand logo", var7);
-               return null;
-            }
+         }
+
+         try (InputStream stream = class_310.method_1551().method_1478().open(class_2960.method_60655("violet", "textures/gui/brand.png"))) {
+            brandSource = class_1011.method_4309(stream);
+         } catch (Exception var7) {
+            brandFailed = true;
+            SoberClient.LOG.error("Could not load brand logo", var7);
+            return null;
          }
       }
+
+      if (BRANDS.size() >= 12) {
+         Iterator<Entry<Integer, class_2960>> oldest = BRANDS.entrySet().iterator();
+         class_310.method_1551().method_1531().method_4615(oldest.next().getValue());
+         oldest.remove();
+      }
+
+      class_2960 id = class_2960.method_60655("violet", "dynamic/brand_" + pixels);
+      register(id, downscale(brandSource, pixels, 1.7F));
+      BRANDS.put(pixels, id);
+      return id;
    }
 
    public static void brandCrisp(class_332 context, float x, float y, float size, int color) {
