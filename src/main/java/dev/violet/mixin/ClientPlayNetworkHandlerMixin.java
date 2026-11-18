@@ -2,7 +2,6 @@ package dev.violet.mixin;
 
 import dev.violet.SoberClient;
 import dev.violet.gui.HudMetrics;
-import dev.violet.modules.ActivityInspector;
 import net.minecraft.class_2604;
 import net.minecraft.class_2676;
 import net.minecraft.class_2761;
@@ -35,17 +34,4 @@ public abstract class ClientPlayNetworkHandlerMixin {
       HudMetrics.onWorldTimeUpdate(packet);
    }
 
-   @Inject(
-      method = {"method_11143"},
-      at = {@At("HEAD")},
-      require = 0
-   )
-   private void violet$onLight(class_2676 packet, CallbackInfo ci) {
-      if (class_310.method_1551().method_18854()) {
-         ActivityInspector activity = SoberClient.MODULES.get(ActivityInspector.class);
-         if (activity != null) {
-            activity.onLightUpdate(packet.method_11558(), packet.method_11554(), packet.method_38600());
-         }
-      }
-   }
 }

@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import dev.violet.modules.CustomCrosshair;
-import dev.violet.modules.FakeStats;
 import dev.violet.modules.MediaHider;
 import dev.violet.modules.NameTags;
 import net.minecraft.class_2561;
@@ -106,7 +105,6 @@ public abstract class InGameHudMixin {
    private void violet$sidebarStart(class_332 context, class_266 objective, CallbackInfo ci) {
       this.violet$drawIndex = 0;
       this.violet$widthIndex = 0;
-      FakeStats.beginSidebar();
    }
 
    @WrapOperation(
@@ -123,11 +121,11 @@ public abstract class InGameHudMixin {
       } else {
          int line = (index - 1) / 2 + 1;
          if ((index - 1) % 2 == 1) {
-            class_2561 score = FakeStats.applyScore(line, text);
+            class_2561 score = text;
             int shift = score == text ? 0 : renderer.method_27525(text) - renderer.method_27525(score);
             original.call(new Object[]{context, renderer, score, x + shift, y, color, shadow});
          } else {
-            original.call(new Object[]{context, renderer, NameTags.decorateText(FakeStats.applyLine(line, text)), x, y, color, shadow});
+            original.call(new Object[]{context, renderer, NameTags.decorateText(text), x, y, color, shadow});
          }
       }
    }
@@ -144,7 +142,7 @@ public abstract class InGameHudMixin {
       if (text instanceof class_2561 value) {
          return index == 0
             ? (Integer)original.call(new Object[]{renderer, NameTags.decorateText(value)})
-            : (Integer)original.call(new Object[]{renderer, NameTags.decorateText(FakeStats.applyLine(index, value))});
+            : (Integer)original.call(new Object[]{renderer, NameTags.decorateText(value)});
       } else {
          return (Integer)original.call(new Object[]{renderer, text});
       }

@@ -46,9 +46,6 @@ public class CustomCrosshair extends Module {
    private final Setting<Boolean> hitAnimation = this.add(
       new BoolSetting("Hit Animation", "The crosshair pops and an X flies outwards when you hit a player or mob.", true)
    );
-   private final Setting<Boolean> freeCamera = this.add(
-      new BoolSetting("Freecam & Freelook", "Also shows the crosshair while Freecam or Freelook is on.", true)
-   );
    private float spread;
    private float lastCooldown = 1.0F;
    private long hitAt;
@@ -81,14 +78,7 @@ public class CustomCrosshair extends Module {
    }
 
    public static boolean showsInFreeCamera() {
-      CustomCrosshair crosshair = instance();
-      if (crosshair != null && crosshair.isActive() && crosshair.freeCamera.get()) {
-         Freecam freecam = SoberClient.MODULES.get(Freecam.class);
-         Freelook freelook = SoberClient.MODULES.get(Freelook.class);
-         return freecam != null && freecam.isActive() || freelook != null && freelook.isActive();
-      } else {
-         return false;
-      }
+      return false;
    }
 
    public static boolean hidesVanillaIndicator() {

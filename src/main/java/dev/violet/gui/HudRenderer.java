@@ -2,18 +2,12 @@ package dev.violet.gui;
 
 import dev.violet.SoberClient;
 import dev.violet.module.Module;
-import dev.violet.modules.AntiCheat;
-import dev.violet.modules.Freecam;
-import dev.violet.modules.Freelook;
 import dev.violet.modules.Hotkeys;
 import dev.violet.modules.Hud;
 import dev.violet.modules.InventoryHud;
 import dev.violet.modules.MediaHider;
 import dev.violet.modules.SpotifyPlayer;
-import dev.violet.modules.StaffLive;
-import dev.violet.modules.SusChunk;
 import dev.violet.modules.Zoom;
-import dev.violet.util.StaffList;
 import it.unimi.dsi.fastutil.longs.LongIterator;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import java.io.InputStream;
@@ -138,20 +132,8 @@ public final class HudRenderer {
          }
 
          boolean hintsShown = !mc.field_1690.field_1842 && mc.field_1724 != null;
-         Freelook freelook = SoberClient.MODULES.get(Freelook.class);
-         float hintAlpha = freelook != null && hintsShown ? freelook.hint() : 0.0F;
-         if (hintAlpha > 0.01F) {
-            cameraHint(context, sw, hintAlpha, "FREELOOK", freelook.getInfoString());
-         }
-
-         Freecam freecam = SoberClient.MODULES.get(Freecam.class);
-         float camAlpha = freecam != null && hintsShown ? freecam.hint() : 0.0F;
-         if (camAlpha > 0.01F) {
-            cameraHint(context, sw, camAlpha, "FREECAM", freecam.getInfoString());
-         }
-
          Zoom zoom = SoberClient.MODULES.get(Zoom.class);
-         float zoomAlpha = zoom != null && hintsShown && !(hintAlpha > 0.01F) && !(camAlpha > 0.01F) ? zoom.hint() : 0.0F;
+         float zoomAlpha = zoom != null && hintsShown ? zoom.hint() : 0.0F;
          if (zoomAlpha > 0.01F) {
             cameraHint(context, sw, zoomAlpha, "ZOOM", zoom.getInfoString());
          }
@@ -410,7 +392,6 @@ public final class HudRenderer {
                   || element == HudLayout.Element.REGION
                   || element == HudLayout.Element.SPOTIFY
                   || element == HudLayout.Element.HOTKEYS
-                  || element == HudLayout.Element.AC_OFF
             )
             && enabled(hud, element)
             && (element != HudLayout.Element.MODULE_LIST || !modules.isEmpty() || ghost)) {
@@ -434,9 +415,7 @@ public final class HudRenderer {
          case BPS -> hud.bps.get() && !hud.infoLine.get();
          case TPS -> hud.tps.get() && !hud.infoLine.get();
          case XYZ -> hud.coordinates.get();
-         case RADAR -> hud.radar.get();
          case MODULE_LIST -> hud.moduleList.get();
-         case STAFF_LIST -> hud.staffList.get();
          case KEYSTROKES -> hud.keystrokes.get();
          case INVENTORY -> {
             InventoryHud inventory = SoberClient.MODULES.get(InventoryHud.class);
@@ -450,13 +429,8 @@ public final class HudRenderer {
             SpotifyPlayer player = SoberClient.MODULES.get(SpotifyPlayer.class);
             yield player != null && player.isActive();
          }
-         case STAFF_LIVE -> {
-            StaffLive live = SoberClient.MODULES.get(StaffLive.class);
-            yield live != null && live.isActive() && live.hud.get();
-         }
          case TOGIS -> hud.togisKeyboard.get();
          case HOTKEYS -> Hotkeys.shouldShowHud();
-         case AC_OFF -> AntiCheat.card() != null;
       };
    }
 
@@ -687,40 +661,26 @@ public final class HudRenderer {
          case WATERMARK -> infoLineOn() ? infoWidth(mc) : watermarkWidth();
          case FPS, BPS, TPS -> pillWidth(element.name(), value(element, mc));
          case XYZ -> coordinatesWidth(mc);
-         case RADAR -> 88;
          case MODULE_LIST -> Math.max(76, modules.stream().mapToInt(m -> textWidth(Theme.label(m.name)) + 20).max().orElse(76));
-         case STAFF_LIST -> 180;
          case KEYSTROKES -> keysBackground() ? 86 : 66;
          case INVENTORY -> 178;
          case REGION -> RegionMap.width(SoberClient.MODULES.get(dev.violet.modules.RegionMap.class));
          case SPOTIFY -> SpotifyPanel.INSTANCE.width(false);
-         case STAFF_LIVE -> 186;
          case TOGIS -> 186;
          case HOTKEYS -> hotkeysWidth();
-         case AC_OFF -> {
-            AcStatusCard.Model card = AntiCheat.card();
-            yield card == null ? 1 : AcStatusCard.width(card);
-         }
       };
    }
 
    private static int baseHeight(HudLayout.Element element, List<Module> modules, class_310 mc, Hud hud) {
       return switch (element) {
          case XYZ -> 8 + 12 * coordinateRows(mc).size();
-         case RADAR -> 88;
          case MODULE_LIST -> Math.max(17, modules.size() * 18 - 1);
-         case STAFF_LIST -> 23 + 18 * Math.max(1, Math.min(hud.staffShown.get(), StaffList.online(mc, hud).size()));
          case KEYSTROKES -> keysBackground() ? 106 : 80;
          case INVENTORY -> 85;
          case REGION -> RegionMap.height(SoberClient.MODULES.get(dev.violet.modules.RegionMap.class));
          case SPOTIFY -> SpotifyPanel.INSTANCE.height(false);
-         case STAFF_LIVE -> 23 + 18 * Math.max(1, liveEntries().size());
          case TOGIS -> 141;
          case HOTKEYS -> 23 + 18 * Math.max(1, hotkeyLines().size());
-         case AC_OFF -> {
-            AcStatusCard.Model card = AntiCheat.card();
-            yield card == null ? 1 : AcStatusCard.height(card);
-         }
          default -> 20;
       };
    }
@@ -770,14 +730,8 @@ public final class HudRenderer {
          case XYZ:
             coordinates(ctx, mc, font);
             break;
-         case RADAR:
-            radar(ctx, mc, font, hud);
-            break;
          case MODULE_LIST:
             moduleList(ctx, font, modules, preview);
-            break;
-         case STAFF_LIST:
-            staffList(ctx, mc, hud, font);
             break;
          case KEYSTROKES:
             keystrokes(ctx, mc, font);
@@ -796,20 +750,12 @@ public final class HudRenderer {
             double ly = box == null ? -1.0 : (my - (double)box.y()) / (double)box.scale();
             SpotifyPanel.INSTANCE.draw(ctx, lx, ly, preview, mc.field_1755 instanceof class_408);
             break;
-         case STAFF_LIVE:
-            staffLive(ctx, font);
-            break;
          case TOGIS:
             togis(ctx);
             break;
          case HOTKEYS:
             hotkeys(ctx, font);
             break;
-         case AC_OFF:
-            AcStatusCard.Model card = AntiCheat.card();
-            if (card != null) {
-               AcStatusCard.draw(ctx, card);
-            }
       }
    }
 
@@ -881,158 +827,6 @@ public final class HudRenderer {
       } else {
          Smooth.rect(ctx, x, y, w, h, r, HudPalette.card());
          Smooth.outline(ctx, x, y, w, h, r, -13750733);
-      }
-   }
-
-   private static void radar(class_332 ctx, class_310 mc, class_327 font, Hud hud) {
-      int c = 44;
-      int r = 42;
-      if (Theme.liquidGlass()) {
-         Smooth.rect(ctx, 0, 0, 88, 88, 44, -1944185034);
-         Smooth.rect(ctx, 2, 2, 84, 84, 42, 317581311);
-         Smooth.sheen(ctx, 0, 0, 88, 88, 44, 285212671);
-         Smooth.ring(ctx, c, c, 43, 1290659839);
-      } else {
-         card(ctx, 0, 0, 88, 88, 44);
-         Smooth.rect(ctx, 2, 2, 84, 84, 42, 351597813);
-      }
-
-      Smooth.ring(ctx, c, c, 43, 1895101685);
-      Smooth.ring(ctx, c, c, 21, 586478837);
-      Smooth.horizontalGradient(ctx, c - r + 6, c, c, c + 1, 16053493, 552924405);
-      Smooth.horizontalGradient(ctx, c + 1, c, c + r - 6, c + 1, 552924405, 16053493);
-      ctx.method_25296(c, c - r + 6, c + 1, c, 16053493, 552924405);
-      ctx.method_25296(c, c + 1, c + 1, c + r - 6, 552924405, 16053493);
-      boolean rotate = hud.radarRotate.get();
-      float playerYaw = mc.field_1724 == null ? 180.0F : mc.field_1724.method_5705(tickProgress);
-      double yaw = Math.toRadians(rotate ? (double)playerYaw : 180.0);
-      double fx = -Math.sin(yaw);
-      double fz = Math.cos(yaw);
-      double rx = -Math.cos(yaw);
-      double rz = -Math.sin(yaw);
-      String[] letters = new String[]{"N", "E", "S", "W"};
-      int[][] dirs = new int[][]{{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
-      Matrix3x2fStack letterMatrices = ctx.method_51448();
-
-      for (int i = 0; i < 4; i++) {
-         double sx = (double)dirs[i][0] * rx + (double)dirs[i][1] * rz;
-         double sy = -((double)dirs[i][0] * fx + (double)dirs[i][1] * fz);
-         class_2561 letter = Theme.bold(letters[i]);
-         letterMatrices.pushMatrix();
-         letterMatrices.translate((float)((double)c + sx * (double)(r - 9)), (float)((double)c + sy * (double)(r - 9)));
-         letterMatrices.scale(0.9F, 0.9F);
-         letterMatrices.translate((float)(-font.method_27525(letter)) / 2.0F, -4.0F);
-         ctx.method_51439(font, letter, 0, 0, i == 0 ? -2565922 : -5329226, false);
-         letterMatrices.popMatrix();
-      }
-
-      if (mc.field_1724 != null && mc.field_1687 != null) {
-         class_243 self = mc.field_1724.method_30950(tickProgress);
-         double scale = (double)(r - 3) / (double)Math.max(1, hud.radarRange.get());
-         if (hud.radarChunks.get()) {
-            SusChunk sus = SoberClient.MODULES.get(SusChunk.class);
-            if (sus != null) {
-               radarArea(ctx, c, r, self, sus.radarChunks(), scale, fx, fz, rx, rz, sus.radarColor());
-            }
-         }
-
-         if (hud.radarPlayers.get()) {
-            for (class_742 other : mc.field_1687.method_18456()) {
-               if (other != mc.field_1724) {
-                  class_243 pos = other.method_30950(tickProgress);
-                  double dx = pos.field_1352 - self.field_1352;
-                  double dz = pos.field_1350 - self.field_1350;
-                  double sx = (dx * rx + dz * rz) * scale;
-                  double sy = -(dx * fx + dz * fz) * scale;
-                  double distance = Math.hypot(sx, sy);
-                  if (distance > (double)(r - 9)) {
-                     if (!(distance > (double)((r - 9) * 3)) && !(distance < 0.01)) {
-                        double ex = sx / distance * (double)(r - 4);
-                        double ey = sy / distance * (double)(r - 4);
-                        Smooth.circle(ctx, c + (int)Math.round(ex), c + (int)Math.round(ey), 2, -923470603);
-                     }
-                  } else {
-                     int px = c + (int)Math.round(sx) - 5;
-                     int py = c + (int)Math.round(sy) - 5;
-                     Smooth.rect(ctx, px - 1, py - 1, 12, 12, 4, -723723);
-                     Avatars.draw(ctx, other.method_52814(), px, py, 10);
-                  }
-               }
-            }
-         }
-
-         Matrix3x2fStack matrices = ctx.method_51448();
-         matrices.pushMatrix();
-         matrices.translate((float)c, (float)c);
-         if (!rotate) {
-            matrices.rotate((float)Math.toRadians((double)(playerYaw - 180.0F)));
-         }
-
-         Smooth.triangle(ctx, 0.0F, 0.0F, 9.0F, -920844);
-         matrices.popMatrix();
-      }
-   }
-
-   private static void radarArea(
-      class_332 ctx, int c, int r, class_243 self, LongSet chunks, double scale, double fx, double fz, double rx, double rz, int fill
-   ) {
-      if (!chunks.isEmpty()) {
-         int edge = Math.min(255, (fill >>> 24) * 3 / 2) << 24
-            | Math.min(255, (int)((float)(fill >> 16 & 0xFF) * 0.77F)) << 16
-            | Math.min(255, (int)((float)(fill >> 8 & 0xFF) * 0.77F)) << 8
-            | Math.min(255, (int)((float)(fill & 0xFF) * 0.77F));
-         float angle = (float)Math.atan2(-fx, rx);
-         int size = Math.max(1, (int)Math.ceil(16.0 * scale));
-         Matrix3x2fStack matrices = ctx.method_51448();
-         LongIterator keys = chunks.iterator();
-
-         while (keys.hasNext()) {
-            long key = keys.nextLong();
-            int cx = class_1923.method_8325(key);
-            int cz = class_1923.method_8332(key);
-            double mx = (double)((cx << 4) + 8) - self.field_1352;
-            double mz = (double)((cz << 4) + 8) - self.field_1350;
-            double sx = (mx * rx + mz * rz) * scale;
-            double sy = -(mx * fx + mz * fz) * scale;
-            double distance = Math.hypot(sx, sy);
-            if (distance > (double)(r - 5)) {
-               if (!(distance > (double)((r - 5) * 3))) {
-                  Smooth.circle(
-                     ctx,
-                     c + (int)Math.round(sx / distance * (double)(r - 4)),
-                     c + (int)Math.round(sy / distance * (double)(r - 4)),
-                     2,
-                     fill & 16777215 | -1342177280
-                  );
-               }
-            } else {
-               double ox = (double)(cx << 4) - self.field_1352;
-               double oz = (double)(cz << 4) - self.field_1350;
-               double px = (ox * rx + oz * rz) * scale;
-               double py = -(ox * fx + oz * fz) * scale;
-               matrices.pushMatrix();
-               matrices.translate((float)((double)c + px), (float)((double)c + py));
-               matrices.rotate(angle);
-               ctx.method_25294(0, 0, size, size, fill);
-               if (!chunks.contains(class_1923.method_8331(cx, cz - 1))) {
-                  ctx.method_25294(0, 0, size, 1, edge);
-               }
-
-               if (!chunks.contains(class_1923.method_8331(cx, cz + 1))) {
-                  ctx.method_25294(0, size - 1, size, size, edge);
-               }
-
-               if (!chunks.contains(class_1923.method_8331(cx - 1, cz))) {
-                  ctx.method_25294(0, 0, 1, size, edge);
-               }
-
-               if (!chunks.contains(class_1923.method_8331(cx + 1, cz))) {
-                  ctx.method_25294(size - 1, 0, size, size, edge);
-               }
-
-               matrices.popMatrix();
-            }
-         }
       }
    }
 
@@ -1217,100 +1011,6 @@ public final class HudRenderer {
             Smooth.rect(ctx, capX, y + 1, capW, 14, 3, 351597813);
             Smooth.outline(ctx, capX, y + 1, capW, 14, 3, 653587701);
             text(ctx, font, line.key(), capX + 5, y + 4, -2565922);
-         }
-      }
-   }
-
-   private static void staffList(class_332 ctx, class_310 mc, Hud hud, class_327 font) {
-      List<StaffList.Member> entries = StaffList.online(mc, hud);
-      int count = Math.min(hud.staffShown.get(), entries.size());
-      int accent = -723723;
-      panel(ctx, 0, 0, 180, 23 + 18 * Math.max(1, count), edgeColor());
-      header(ctx, "STAFF LIST", 8.0F, 6.3F);
-      String online = count + " ONLINE";
-      label(ctx, online, 172.0F - labelWidth(online), 6.3F, count > 0 ? accent : -5329226);
-      if (count == 0) {
-         text(ctx, font, "No staff online", 8, 27, -5329226);
-      } else {
-         for (int i = 0; i < count; i++) {
-            StaffList.Member member = entries.get(i);
-            class_640 entry = member.entry();
-            int y = 23 + i * 18;
-            Avatars.draw(ctx, entry.method_52810(), 8, y + 2, 12);
-            String ping = Math.max(0, entry.method_2959()) + "ms";
-            String name = member.name();
-            int room = 172 - textWidth(ping) - 8 - 26;
-
-            while (textWidth(name) > room && name.length() > 1) {
-               name = name.substring(0, name.length() - 1);
-            }
-
-            text(ctx, font, name, 26, y + 4, -723723);
-            text(ctx, font, ping, 172 - textWidth(ping), y + 4, accent);
-         }
-      }
-   }
-
-   private static List<StaffLive.Entry> liveEntries() {
-      StaffLive live = SoberClient.MODULES.get(StaffLive.class);
-      if (live == null) {
-         return List.of();
-      } else {
-         List<StaffLive.Entry> result = new ArrayList<>();
-
-         for (StaffLive.Entry entry : live.entries()) {
-            if (entry.enabled()) {
-               result.add(entry);
-            }
-         }
-
-         return result;
-      }
-   }
-
-   private static void staffLive(class_332 ctx, class_327 font) {
-      List<StaffLive.Entry> entries = liveEntries();
-      int width = 186;
-      long count = entries.stream().filter(StaffLive.Entry::live).count();
-      panel(ctx, 0, 0, width, 23 + 18 * Math.max(1, entries.size()), count > 0L ? -1750963 : edgeColor());
-      header(ctx, "STAFF LIVE", 8.0F, 6.3F);
-      String summary = count + " LIVE";
-      if (count > 0L) {
-         int sw = Math.round(labelWidth(summary)) + 10;
-         Smooth.rect(ctx, width - 8 - sw, 5, sw, 12, 3, -1750963);
-         label(ctx, summary, (float)(width - 8 - sw + 5), 5.2F, -1);
-      } else {
-         label(ctx, summary, (float)(width - 8) - labelWidth(summary), 6.3F, -5329226);
-      }
-
-      if (entries.isEmpty()) {
-         text(ctx, font, "No streamers selected", 8, 27, -5329226);
-      } else {
-         float pulse = (float)(0.5 + 0.5 * Math.sin((double)System.currentTimeMillis() / 260.0));
-
-         for (int i = 0; i < entries.size(); i++) {
-            StaffLive.Entry entry = entries.get(i);
-            int y = 23 + i * 18;
-            if (entry.live()) {
-               Smooth.circle(ctx, 11, y + 8, 5, Math.round(48.0F + 80.0F * pulse) << 24 | 15026253);
-               Smooth.circle(ctx, 11, y + 8, 3, -1750963);
-            } else {
-               Smooth.circle(ctx, 11, y + 8, 3, -9539978);
-            }
-
-            int bw = textWidth(entry.badge()) + 10;
-            int bx = width - 8 - bw;
-            Smooth.rect(ctx, bx, y + 2, bw, 12, 3, entry.color());
-            text(ctx, font, entry.badge(), bx + 5, y + 4, -1);
-            int px = bx - 6 - textWidth(entry.platform());
-            text(ctx, font, entry.platform(), px, y + 4, -5329226);
-            String name = entry.name();
-
-            while (textWidth(name) > px - 26 && name.length() > 1) {
-               name = name.substring(0, name.length() - 1);
-            }
-
-            text(ctx, font, name, 20, y + 4, entry.live() ? -723723 : -5329226);
          }
       }
    }

@@ -139,16 +139,7 @@ public class NameTags extends Module {
    }
 
    private void learn() {
-      Hud hud = SoberClient.MODULES.get(Hud.class);
       Set<String> staff = new HashSet<>();
-      if (hud != null) {
-         for (String part : hud.staffNames.get().split(",")) {
-            String name = part.trim().toLowerCase(Locale.ROOT);
-            if (!name.isEmpty() && !name.equalsIgnoreCase("ArchivePedro")) {
-               staff.add(name);
-            }
-         }
-      }
 
       String copyName = this.copyFrom.get().trim();
       Map<String, Integer> counts = new HashMap<>();

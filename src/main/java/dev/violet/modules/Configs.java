@@ -126,13 +126,6 @@ public class Configs extends Module implements Presets {
       } else {
          this.rename.set(ConfigSlots.name(slot));
          Notifications.push("Configs", ConfigSlots.name(slot) + " is now active.", Notifications.Type.SUCCESS);
-         if (imported) {
-            Notifications.push(
-               "Configs",
-               "Auction Sniper, Auto Sell, Auto Shop, RTP Method and Panic Order kept your own settings, because they send commands.",
-               Notifications.Type.INFO
-            );
-         }
       }
    }
 

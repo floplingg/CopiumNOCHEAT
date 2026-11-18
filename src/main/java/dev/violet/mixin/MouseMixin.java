@@ -3,8 +3,6 @@ package dev.violet.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.violet.SoberClient;
-import dev.violet.modules.Freecam;
-import dev.violet.modules.Freelook;
 import dev.violet.modules.Zoom;
 import net.minecraft.class_310;
 import net.minecraft.class_312;
@@ -32,17 +30,7 @@ public abstract class MouseMixin {
          dy *= slow;
       }
 
-      Freecam freecam = SoberClient.MODULES.get(Freecam.class);
-      if (freecam != null && freecam.isActive()) {
-         freecam.turn(dx, dy);
-      } else {
-         Freelook freelook = SoberClient.MODULES.get(Freelook.class);
-         if (freelook != null && freelook.isActive()) {
-            freelook.turn(dx, dy);
-         } else {
-            original.call(new Object[]{player, dx, dy});
-         }
-      }
+      original.call(new Object[]{player, dx, dy});
    }
 
    @Inject(
@@ -57,19 +45,6 @@ public abstract class MouseMixin {
          Zoom zoom = SoberClient.MODULES.get(Zoom.class);
          if (zoom != null && zoom.scroll(vertical)) {
             ci.cancel();
-         } else {
-            Freecam freecam = SoberClient.MODULES.get(Freecam.class);
-            if (freecam != null && freecam.isActive()) {
-               if (freecam.scroll(vertical)) {
-                  ci.cancel();
-               }
-            } else {
-               Freelook freelook = SoberClient.MODULES.get(Freelook.class);
-               if (freelook != null && freelook.isActive()) {
-                  freelook.scroll(vertical);
-                  ci.cancel();
-               }
-            }
          }
       }
    }

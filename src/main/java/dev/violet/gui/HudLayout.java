@@ -136,17 +136,13 @@ public final class HudLayout {
       POSITIONS.put(HudLayout.Element.BPS, new HudLayout.Position(145, 5, 1.0F, false, false));
       POSITIONS.put(HudLayout.Element.TPS, new HudLayout.Position(5, 29, 1.0F, false, false));
       POSITIONS.put(HudLayout.Element.XYZ, new HudLayout.Position(78, 29, 1.0F, false, false));
-      POSITIONS.put(HudLayout.Element.RADAR, new HudLayout.Position(5, 57, 1.0F, false, false));
       POSITIONS.put(HudLayout.Element.MODULE_LIST, new HudLayout.Position(5, 5, 1.0F, true, false));
-      POSITIONS.put(HudLayout.Element.STAFF_LIST, new HudLayout.Position(5, 142, 1.0F, true, false));
       POSITIONS.put(HudLayout.Element.KEYSTROKES, new HudLayout.Position(5, 5, 1.0F, false, true));
       POSITIONS.put(HudLayout.Element.INVENTORY, new HudLayout.Position(5, 5, 1.0F, true, true));
       POSITIONS.put(HudLayout.Element.REGION, new HudLayout.Position(5, 152, 1.0F, false, false));
       POSITIONS.put(HudLayout.Element.SPOTIFY, new HudLayout.Position(5, 92, 1.0F, false, true));
-      POSITIONS.put(HudLayout.Element.STAFF_LIVE, new HudLayout.Position(5, 262, 1.0F, true, false));
       POSITIONS.put(HudLayout.Element.TOGIS, new HudLayout.Position(5, 100, 1.0F, true, true));
       POSITIONS.put(HudLayout.Element.HOTKEYS, new HudLayout.Position(5, 200, 1.0F, true, false));
-      POSITIONS.put(HudLayout.Element.AC_OFF, new HudLayout.Position(5, 150, 1.0F, false, false));
    }
 
    public static record Box(int x, int y, int width, int height, float scale) {
@@ -161,17 +157,13 @@ public final class HudLayout {
       BPS,
       TPS,
       XYZ,
-      RADAR,
       MODULE_LIST,
-      STAFF_LIST,
       KEYSTROKES,
       INVENTORY,
       REGION,
       SPOTIFY,
-      STAFF_LIVE,
       TOGIS,
-      HOTKEYS,
-      AC_OFF;
+      HOTKEYS;
    }
 
    private static final class Position {

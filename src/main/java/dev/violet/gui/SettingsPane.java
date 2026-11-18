@@ -74,7 +74,7 @@ final class SettingsPane {
       true, -855051, -4012338, -6906969, 385875967, 687865855, 620756991, 1023410175, 654311423, 251658239, -855051, 1023410175, 0, true, 0
    );
    private SettingsPane.Palette pal = DARK;
-   private static final String CONFIG_NOTE = "Imported configs never change Auction Sniper, Auto Sell, Auto Shop, RTP Method or Panic Order, because they send commands.";
+   private static final String CONFIG_NOTE = "Configs only hold visual settings, so imported configs are always safe to try.";
 
    private int accent() {
       return this.pal.accent() != 0 ? this.pal.accent() : MenuKit.accent();
@@ -698,7 +698,7 @@ final class SettingsPane {
    private float configHeight(int w) {
       return 242.0F
          + (float)MenuKit.wrap(
-                  "Imported configs never change Auction Sniper, Auto Sell, Auto Shop, RTP Method or Panic Order, because they send commands.",
+                  "Configs only hold visual settings, so imported configs are always safe to try.",
                   (float)w,
                   0.62F,
                   false
@@ -793,7 +793,7 @@ final class SettingsPane {
       ty += 26.0F;
 
       for (String line : MenuKit.wrap(
-         "Imported configs never change Auction Sniper, Auto Sell, Auto Shop, RTP Method or Panic Order, because they send commands.", (float)w, 0.62F, false
+         "Configs only hold visual settings, so imported configs are always safe to try.", (float)w, 0.62F, false
       )) {
          this.text(context, line, (float)x, ty, 0.62F, this.pal.faint(), false);
          ty += 9.0F;

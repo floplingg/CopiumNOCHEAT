@@ -3,7 +3,6 @@ package dev.violet.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.violet.SoberClient;
-import dev.violet.modules.Freecam;
 import dev.violet.modules.MotionBlur;
 import dev.violet.modules.Zoom;
 import dev.violet.render.Render3D;
@@ -72,34 +71,5 @@ public abstract class GameRendererMixin {
       }
    }
 
-   @WrapOperation(
-      method = {"method_3172"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/class_5498;method_31034()Z"
-      )},
-      require = 0
-   )
-   private boolean violet$freecamHands(class_5498 perspective, Operation<Boolean> original) {
-      if ((Boolean)original.call(new Object[]{perspective})) {
-         return true;
-      } else {
-         Freecam freecam = SoberClient.MODULES.get(Freecam.class);
-         return freecam != null && freecam.showsHands();
-      }
-   }
 
-   @WrapOperation(
-      method = {"method_3188"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/class_757;method_3186(Lnet/minecraft/class_4587;F)V"
-      )},
-      require = 0
-   )
-   private void violet$steadyTracers(class_757 renderer, class_4587 matrices, float tickProgress, Operation<Void> original) {
-      if (!Render3D.tracersActive()) {
-         original.call(new Object[]{renderer, matrices, tickProgress});
-      }
-   }
 }

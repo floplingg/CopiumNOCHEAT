@@ -13,7 +13,7 @@ public class ColorSync extends Module {
    public final Setting<Color> color = this.add(
          new ColorSetting(
             "All Colors",
-            "Move this one color wheel and every module color follows: ESP, Sus Chunk, tracers, Player Xray, glows and more. Each color keeps its own transparency.",
+            "Move this one color wheel and every module color follows: glows, accents, glints and more. Each color keeps its own transparency.",
             new Color(176, 140, 240, 255)
          )
       )
