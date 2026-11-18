@@ -42,7 +42,7 @@ jobs:
             echo "::error::Cheat classes found in the jar"; exit 1
           fi
           echo "No cheat classes in the jar."
-          if unzip -l "$JAR" | grep -iE "\.(ps1|vbs|bat|cmd|exe|dll|so|dylib|sh|jar)$"; then
+          if unzip -Z1 "$JAR" | grep -iE "\.(ps1|vbs|bat|cmd|exe|dll|so|dylib|sh|jar)$"; then
             echo "::error::Scripts, executables or nested jars found in the jar"; exit 1
           fi
           echo "No scripts, executables or nested jars in the jar."
