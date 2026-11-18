@@ -58,8 +58,8 @@ public class CustomModels extends Module implements Presets {
    public final Setting<Color> headColor;
    public final Setting<Color> handleColor;
    public final Setting<Integer> headSize;
-   public final Setting<Boolean> openFolder;
-   public final Setting<Boolean> reload;
+   public Setting<Boolean> openFolder;
+   public Setting<Boolean> reload;
 
    public CustomModels() {
       super("Custom Models", "Swaps pickaxes or any item for your own 3D models or item packs like Fortnite Pack and Watery.", Category.VISUALS);
