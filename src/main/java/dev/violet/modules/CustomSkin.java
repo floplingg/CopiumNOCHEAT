@@ -48,8 +48,8 @@ public class CustomSkin extends Module implements Presets {
    public final Setting<Boolean> relaxArms;
    public final Setting<Integer> swing;
    public final Setting<Boolean> showParts;
-   public final Setting<Boolean> openFolder;
-   public final Setting<Boolean> reload;
+   public Setting<Boolean> openFolder;
+   public Setting<Boolean> reload;
    private static final int RING = 6;
    private SkinRig rig;
    private boolean rigRelaxed;
