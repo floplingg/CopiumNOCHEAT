@@ -38,7 +38,7 @@ public class CustomGlint extends Module implements Presets {
       this.glintStrength = this.add(
             new IntSetting(
                "Glint Strength",
-               "How much the SoberClient glints cover the item, in percent. At 100 percent the item looks like it is made of the glint. The vanilla glint uses it as brightness.",
+               "How much the Copium Client glints cover the item, in percent. At 100 percent the item looks like it is made of the glint. The vanilla glint uses it as brightness.",
                75,
                0,
                100
@@ -86,7 +86,7 @@ public class CustomGlint extends Module implements Presets {
    public void checkConflicts() {
       if (!this.warned && this.glint.get() != CustomGlint.Glint.Vanilla && FabricLoader.getInstance().isModLoaded("customglint")) {
          this.warned = true;
-         this.warning("The Custom Glint mod replaces enchant glints. Disable it in your mods folder to see the SoberClient glint.", new Object[0]);
+         this.warning("The Custom Glint mod replaces enchant glints. Disable it in your mods folder to see the Copium Client glint.", new Object[0]);
       }
    }
 

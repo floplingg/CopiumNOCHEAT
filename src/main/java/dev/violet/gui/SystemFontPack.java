@@ -22,7 +22,7 @@ public final class SystemFontPack implements class_3262 {
    private static final String NAMESPACE = "violet";
    private static final Map<String, String> FILES = Map.of("font/consolas-regular.ttf", "consola.ttf", "font/consolas-bold.ttf", "consolab.ttf");
    private static final class_9224 INFO = new class_9224(
-      "violet_system_fonts", class_2561.method_43470("SoberClient system fonts"), class_5352.field_25348, Optional.empty()
+      "violet_system_fonts", class_2561.method_43470("Copium Client system fonts"), class_5352.field_25348, Optional.empty()
    );
    private final Map<String, Path> found = new LinkedHashMap<>();
 

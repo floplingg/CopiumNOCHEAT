@@ -152,7 +152,7 @@ public final class GlintManager {
 
    private static class_1011 load(GlintType type) {
       Optional<Path> path = FabricLoader.getInstance()
-         .getModContainer("soberclient")
+         .getModContainer("copium")
          .flatMap(mod -> mod.findPath("assets/violet/textures/glint/" + type.texture() + ".png"));
       if (path.isEmpty()) {
          return null;

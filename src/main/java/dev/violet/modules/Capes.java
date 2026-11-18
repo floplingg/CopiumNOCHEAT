@@ -19,7 +19,7 @@ public class Capes extends Module {
    public final Setting<Capes.Style> style = this.add(
       new EnumSetting<>(
          "Style",
-         "Violet is deep violet with the paw logo. Violet Shine has a light that sweeps over it. Neon Paw draws the paw as flickering neon lines. Violet Paw shows the violet paw with a soft pulse. Badge shows the round SoberClient badge turning slowly. VC Logo shows the VC monogram. Lightning flashes violet bolts behind the paw. Night Sky has twinkling stars and a glowing paw. Galaxy has a slowly drifting nebula. Holo shimmers in rainbow colors.",
+         "Violet is deep violet with the paw logo. Violet Shine has a light that sweeps over it. Neon Paw draws the paw as flickering neon lines. Violet Paw shows the violet paw with a soft pulse. Badge shows the round Copium Client badge turning slowly. VC Logo shows the VC monogram. Lightning flashes violet bolts behind the paw. Night Sky has twinkling stars and a glowing paw. Galaxy has a slowly drifting nebula. Holo shimmers in rainbow colors.",
          Capes.Style.VioletShine
       )
    );
@@ -29,7 +29,7 @@ public class Capes extends Module {
    );
 
    public Capes() {
-      super("Capes", "A SoberClient cape with the logo in different styles and effects. Only you can see it.", Category.VISUALS);
+      super("Capes", "A Copium Client cape with the logo in different styles and effects. Only you can see it.", Category.VISUALS);
    }
 
    public static void apply(class_11890 entity, class_10055 state) {

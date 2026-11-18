@@ -15,7 +15,7 @@ public final class HudLayout {
    private static final int CENTER = 1;
    private static final int END = 2;
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("soberclient-hud-layout.json");
+   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("copium-hud-layout.json");
    private static final EnumMap<HudLayout.Element, HudLayout.Position> POSITIONS = new EnumMap<>(HudLayout.Element.class);
 
    private HudLayout() {

@@ -206,11 +206,11 @@ public final class LyricsService implements AutoCloseable {
          Thread.currentThread().interrupt();
          return;
       } catch (IOException var39) {
-         LOGGER.info("[Sober] Lyrics lookup for \"{}\" failed: {}", query.title(), var39.toString());
+         LOGGER.info("[Copium] Lyrics lookup for \"{}\" failed: {}", query.title(), var39.toString());
          this.remember(key, stored != null ? Lyrics.of(stored.track()) : Lyrics.UNAVAILABLE, this.retryAt());
          return;
       } catch (RuntimeException var40) {
-         LOGGER.info("[Sober] Lyrics lookup for \"" + query.title() + "\" failed", var40);
+         LOGGER.info("[Copium] Lyrics lookup for \"" + query.title() + "\" failed", var40);
          this.remember(key, Lyrics.UNAVAILABLE, this.retryAt());
          return;
       } finally {
@@ -460,7 +460,7 @@ public final class LyricsService implements AutoCloseable {
       String version;
       try {
          version = FabricLoader.getInstance()
-            .getModContainer("soberclient")
+            .getModContainer("copium")
             .map(container -> container.getMetadata().getVersion().getFriendlyString())
             .orElse("dev");
       } catch (RuntimeException | LinkageError var2) {
@@ -472,7 +472,7 @@ public final class LyricsService implements AutoCloseable {
          version = version.substring(0, build);
       }
 
-      return "SoberClient/" + version;
+      return "CopiumClient/" + version;
    }
 
    private static final class BusyException extends IOException {

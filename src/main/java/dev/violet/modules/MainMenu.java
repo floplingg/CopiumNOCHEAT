@@ -14,7 +14,7 @@ public class MainMenu extends Module {
    public final Setting<MainMenu.Style> style = this.add(
       new EnumSetting<>(
          "Menu Style",
-         "Sober is the black start screen with the dripping chrome Sober logo and dark buttons in the middle, with matching dark menus. Vanilla+ is the normal Minecraft title screen, only cleaner, with floating bottles, the SoberClient logo and a matching pause menu. Home is the clean start screen with quick join, your 3D skin and name and skin fields. Island is the animated beach with the cloud title. Classic is the old dark menu.",
+         "Copium is the black start screen with the dripping chrome Copium logo and dark buttons in the middle, with matching dark menus. Vanilla+ is the normal Minecraft title screen, only cleaner, with floating bottles, the Copium Client logo and a matching pause menu. Home is the clean start screen with quick join, your 3D skin and name and skin fields. Island is the animated beach with the cloud title. Classic is the old dark menu.",
          MainMenu.Style.Violet
       )
    );
@@ -27,9 +27,9 @@ public class MainMenu extends Module {
       )
       .visible(() -> this.style.get() == MainMenu.Style.Violet);
    private final Setting<Integer> menuVersion = this.add(new IntSetting("Menu Version", "", 0, 0, 100)).visible(() -> false);
-   public final Setting<Boolean> intro = this.add(new BoolSetting("Intro", "Plays the SoberClient intro when the game starts.", true));
+   public final Setting<Boolean> intro = this.add(new BoolSetting("Intro", "Plays the Copium Client intro when the game starts.", true));
    public final Setting<Boolean> audio = this.add(
-         new BoolSetting("Menu Sound", "Plays a short SoberClient chime once when the start menu opens after starting the game.", true)
+         new BoolSetting("Menu Sound", "Plays a short Copium Client chime once when the start menu opens after starting the game.", true)
       )
       .onChanged(v -> {
          if (!v) {
@@ -48,7 +48,7 @@ public class MainMenu extends Module {
    );
 
    public MainMenu() {
-      super("Main Menu", "Custom SoberClient title screen with an intro animation.", Category.CLIENT);
+      super("Main Menu", "Custom Copium Client title screen with an intro animation.", Category.CLIENT);
       this.setEnabledSilently(true);
    }
 
@@ -89,7 +89,7 @@ public class MainMenu extends Module {
    }
 
    public static enum Style {
-      Violet("Sober"),
+      Violet("Copium"),
       VanillaPlus("Vanilla+"),
       Home("Home"),
       Island("Island"),

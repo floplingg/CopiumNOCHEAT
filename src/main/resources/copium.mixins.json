@@ -7,7 +7,6 @@
     "WindowTitleMixin",
     "ItemGlassMixin",
     "GlassGearMixin",
-    "WorldChunkThreadMixin",
     "MouseEventsMixin",
     "ServerEntryMixin",
     "ServerEntryAccessor",

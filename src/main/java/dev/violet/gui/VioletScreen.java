@@ -41,7 +41,7 @@ public final class VioletScreen extends class_437 {
    private float logoCenterY;
 
    public VioletScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
    }
 
    public boolean method_25422() {

@@ -7,7 +7,7 @@ import net.minecraft.class_310;
 import net.minecraft.class_5250;
 
 public final class ModuleChat {
-   private static final String HEADER = "SoberClient";
+   private static final String HEADER = "Copium Client";
    private static final int DARK_GREY = 5592405;
    private static final int GREY = 11184810;
    private static final int WHITE = 16777215;
@@ -62,7 +62,7 @@ public final class ModuleChat {
    private static class_5250 line(BusModule module, class_2561 body) {
       return class_2561.method_43473()
          .method_10852(class_2561.method_43470("[").method_54663(5592405))
-         .method_10852(class_2561.method_43470("SoberClient").method_54663(Theme.accent() & 16777215))
+         .method_10852(class_2561.method_43470("Copium Client").method_54663(Theme.accent() & 16777215))
          .method_10852(class_2561.method_43470("] ").method_54663(5592405))
          .method_10852(class_2561.method_43470(module.name()).method_54663(16777215))
          .method_10852(class_2561.method_43470(" : ").method_54663(5592405))

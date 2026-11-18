@@ -16,7 +16,7 @@ public abstract class ClientWorldMixin {
       at = {@At("HEAD")}
    )
    private void violet$onBlockUpdate(class_2338 pos, class_2680 state, int flags, CallbackInfo ci) {
-      class_2680 old = ((class_638)this).method_8320(pos);
+      class_2680 old = ((class_638)(Object)this).method_8320(pos);
       if (old != state) {
          SoberClient.MODULES.onBlockUpdate(pos.method_10062(), old, state);
       }

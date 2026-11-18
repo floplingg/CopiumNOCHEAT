@@ -25,7 +25,7 @@ public class Sky extends Module {
    public Sky() {
       super(
          "Sky",
-         "Animated aurora, galaxy, anime, storm sea, blood moon, petal dusk, event horizon, frost halo, firefly night, candy clouds, nebula bloom, ashen squall, nightshade, phantom mist, synthwave, black hole, sakura, underwater, cyberpunk and Sober skies. Sober is a black night with the dripping chrome discord.gg/soberclient around the horizon.",
+         "Animated aurora, galaxy, anime, storm sea, blood moon, petal dusk, event horizon, frost halo, firefly night, candy clouds, nebula bloom, ashen squall, nightshade, phantom mist, synthwave, black hole, sakura, underwater, cyberpunk and Copium skies. Copium is a black night with the Copium Client logo around the horizon.",
          Category.VISUALS
       );
       this.group("Sky");
@@ -173,7 +173,7 @@ public class Sky extends Module {
       Sakura("Sakura", SkyType.SAKURA),
       Underwater("Underwater", SkyType.UNDERWATER),
       Cyberpunk("Cyberpunk", SkyType.CYBERPUNK),
-      Sober("Sober", SkyType.SOBER);
+      Sober("Copium", SkyType.SOBER);
 
       private final String title;
       final SkyType type;

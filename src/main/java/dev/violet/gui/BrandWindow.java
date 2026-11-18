@@ -21,7 +21,7 @@ public final class BrandWindow {
    }
 
    public static String title(String vanilla) {
-      return vanilla == null ? "SoberClient" : vanilla.replaceFirst("^Minecraft\\*?", "SoberClient");
+      return vanilla == null ? "Copium Client" : vanilla.replaceFirst("^Minecraft\\*?", "Copium Client");
    }
 
    public static void apply(class_310 client) {
@@ -90,7 +90,7 @@ public final class BrandWindow {
                stack.close();
             }
          } catch (Exception var29) {
-            SoberClient.LOG.warn("Could not set the SoberClient window icon", var29);
+            SoberClient.LOG.warn("Could not set the Copium Client window icon", var29);
          } finally {
             buffers.forEach(MemoryUtil::memFree);
          }

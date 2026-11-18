@@ -18,7 +18,7 @@ public abstract class LivingEntityMixin {
       require = 0
    )
    private void violet$swingDuration(CallbackInfoReturnable<Integer> cir) {
-      if (this == class_310.method_1551().field_1724) {
+      if ((Object)this == class_310.method_1551().field_1724) {
          SwingAnimations module = SoberClient.MODULES.get(SwingAnimations.class);
          if (module != null && module.isActive()) {
             cir.setReturnValue(module.duration(cir.getReturnValueI()));

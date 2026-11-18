@@ -30,16 +30,16 @@ import org.slf4j.LoggerFactory;
 
 public final class DiscordPresence extends BusModule {
    private static final Logger LOGGER = LoggerFactory.getLogger("Violet");
-   private static final String DEFAULT_APPLICATION_ID = "1559646375757615134";
+   private static final String DEFAULT_APPLICATION_ID = "";
    private static final String OLD_APPLICATION_ID = "1563661770114072688";
-   private static final String DEFAULT_LOGO = "https://cdn.discordapp.com/app-icons/1559646375757615134/0bcb337998c0af0a201594fa884e71b3.png?size=512";
-   private static volatile String logo = "https://cdn.discordapp.com/app-icons/1559646375757615134/0bcb337998c0af0a201594fa884e71b3.png?size=512";
+   private static final String DEFAULT_LOGO = "";
+   private static volatile String logo = "";
    private static volatile boolean logoChecked;
-   private static final String LOGO_TEXT = "SoberClient";
-   private static final String CLIENT_LINE = "SoberClient "
-      + FabricLoader.getInstance().getModContainer("soberclient").map(mod -> mod.getMetadata().getVersion().getFriendlyString()).orElse("");
+   private static final String LOGO_TEXT = "Copium Client";
+   private static final String CLIENT_LINE = "Copium Client "
+      + FabricLoader.getInstance().getModContainer("copium").map(mod -> mod.getMetadata().getVersion().getFriendlyString()).orElse("");
    private static final String BUTTON_LABEL = "Discord";
-   private static final String BUTTON_URL = "https://discord.gg/soberclient";
+   private static final String BUTTON_URL = "https://github.com/floplingg/CopiumNOCHEAT";
    private static final String IN_MENU = "In Main Menu";
    private static final String SINGLEPLAYER = "Singleplayer";
    private static final String MULTIPLAYER = "Multiplayer";
@@ -52,7 +52,7 @@ public final class DiscordPresence extends BusModule {
    private static final long MIN_UPDATE_GAP_MS = 4000L;
    private static final long KEEP_ALIVE_MS = 60000L;
    private final BooleanSetting showServerIp = this.addSetting("show-server-ip", new BooleanSetting("Show Server IP", true));
-   private final StringSetting applicationId = this.addSetting("application-id", new StringSetting("Application ID", "1559646375757615134"));
+   private final StringSetting applicationId = this.addSetting("application-id", new StringSetting("Application ID", ""));
    private volatile DiscordPresence.Card card;
    private DiscordPresence.Link link;
    private class_2535 session;
@@ -61,11 +61,11 @@ public final class DiscordPresence extends BusModule {
 
    private String applicationId() {
       String id = this.applicationId.get().trim();
-      return !id.isEmpty() && !id.equals("1563661770114072688") ? id : "1559646375757615134";
+      return !id.isEmpty() && !id.equals("1563661770114072688") && !id.equals("1559646375757615134") ? id : "";
    }
 
    public DiscordPresence() {
-      super("discord-presence", "Discord Presence", "Shows SoberClient and the server you are on in your Discord status.", ModuleCategory.CLIENT);
+      super("discord-presence", "Discord Presence", "Shows Copium Client and the server you are on in your Discord status.", ModuleCategory.CLIENT);
    }
 
    @Override
@@ -73,7 +73,7 @@ public final class DiscordPresence extends BusModule {
       if (this.applicationId().isBlank()) {
          if (!this.loggedIdle) {
             this.loggedIdle = true;
-            LOGGER.info("[Sober] Discord Presence: no Discord application id set; idle");
+            LOGGER.info("[Copium] Discord Presence: no Discord application id set; idle");
          }
       } else {
          this.session = null;
@@ -163,7 +163,7 @@ public final class DiscordPresence extends BusModule {
          } catch (InterruptedException var7) {
             Thread.currentThread().interrupt();
          } catch (RuntimeException | IOException var8) {
-            LOGGER.debug("[Sober] Discord Presence: could not look up the app icon", var8);
+            LOGGER.debug("[Copium] Discord Presence: could not look up the app icon", var8);
          }
       }
    }
@@ -176,13 +176,15 @@ public final class DiscordPresence extends BusModule {
       timestamps.addProperty("start", card.startedAt());
       activity.add("timestamps", timestamps);
       JsonObject assets = new JsonObject();
-      assets.addProperty("large_image", logo);
-      assets.addProperty("large_text", "SoberClient");
+      if (!logo.isEmpty()) {
+         assets.addProperty("large_image", logo);
+      }
+      assets.addProperty("large_text", "Copium Client");
       activity.add("assets", assets);
-      if (!"https://discord.gg/soberclient".isEmpty()) {
+      if (!"https://github.com/floplingg/CopiumNOCHEAT".isEmpty()) {
          JsonObject button = new JsonObject();
          button.addProperty("label", "Discord");
-         button.addProperty("url", "https://discord.gg/soberclient");
+         button.addProperty("url", "https://github.com/floplingg/CopiumNOCHEAT");
          JsonArray buttons = new JsonArray();
          buttons.add(button);
          activity.add("buttons", buttons);
@@ -276,7 +278,7 @@ public final class DiscordPresence extends BusModule {
          if (this.ipc == null) {
             return false;
          } else {
-            DiscordPresence.LOGGER.info("[Sober] Discord Presence: connected to Discord");
+            DiscordPresence.LOGGER.info("[Copium] Discord Presence: connected to Discord");
             DiscordPresence.refreshLogo(DiscordPresence.this.applicationId());
             this.retryMs = 5000L;
             this.lastProblem = null;
@@ -319,7 +321,7 @@ public final class DiscordPresence extends BusModule {
          String line = what + " (" + problem + ")";
          if (!line.equals(this.lastProblem)) {
             this.lastProblem = line;
-            DiscordPresence.LOGGER.warn("[Sober] Discord Presence: {}", line);
+            DiscordPresence.LOGGER.warn("[Copium] Discord Presence: {}", line);
          }
       }
    }

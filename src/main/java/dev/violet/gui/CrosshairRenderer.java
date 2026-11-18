@@ -188,7 +188,7 @@ public final class CrosshairRenderer {
       float half = (float)thickness / 2.0F;
       float dot = Math.max(0.9F, (float)thickness * 0.75F);
       switch (shape) {
-         case PALM:
+         case PALM: {
             float d = r - dot;
             float start = dot + 1.5F;
             float length = (float)size * 1.15F;
@@ -220,9 +220,11 @@ public final class CrosshairRenderer {
             float ty2 = start + (float)size * 1.4F;
             d = Math.min(d, capsule(x, y, 0.0F, start, tx1, ty1, half * 1.1F));
             return Math.min(d, capsule(x, y, tx1, ty1, tx2, ty2, half * 1.25F));
-         case DOT:
+         }
+         case DOT: {
             return r - (0.6F + (float)size * 0.22F + (float)thickness * 0.5F);
-         case CROSS:
+         }
+         case CROSS: {
             float d = 3.4028235E38F;
 
             for (int i = 0; i < 4; i++) {
@@ -230,11 +232,12 @@ public final class CrosshairRenderer {
             }
 
             return d;
+         }
          case RING: {
             float radius = (float)size * 0.8F + (float)gap * 0.5F;
             return Math.min(Math.abs(r - radius) - half, r - dot);
          }
-         case SUN:
+         case SUN: {
             float core = (float)thickness * 1.2F + 1.0F;
             float d = r - core;
             float start = core + 1.5F + (float)gap;
@@ -245,13 +248,14 @@ public final class CrosshairRenderer {
             }
 
             return d;
+         }
          case WAVE: {
             float radius = (float)size * 0.8F + (float)gap * 0.5F;
             double theta = Math.atan2((double)y, (double)x);
             float wave = radius + Math.max(0.8F, (float)size * 0.12F) * (float)Math.sin(theta * 8.0);
             return Math.min(Math.abs(r - wave) - half, r - dot);
          }
-         case Y:
+         case Y: {
             float d = r - dot;
             double[] angles = new double[]{1.5707963267948966, Math.toRadians(210.0), Math.toRadians(330.0)};
 
@@ -260,7 +264,8 @@ public final class CrosshairRenderer {
             }
 
             return d;
-         case BRACKETS:
+         }
+         case BRACKETS: {
             float corner = (float)gap + (float)size * 0.7F;
             float arm = Math.max(2.0F, (float)size * 0.45F);
             float d = r - dot;
@@ -275,7 +280,8 @@ public final class CrosshairRenderer {
             }
 
             return d;
-         case HIT:
+         }
+         case HIT: {
             float d = 3.4028235E38F;
 
             for (int i = 0; i < 4; i++) {
@@ -283,6 +289,7 @@ public final class CrosshairRenderer {
             }
 
             return d;
+         }
          case ARC: {
             double theta = Math.atan2((double)x, (double)(-y));
             if (theta < 0.0) {
@@ -295,8 +302,9 @@ public final class CrosshairRenderer {
 
             return Math.abs(r - (float)size) - half;
          }
-         default:
+         default: {
             return r - dot;
+         }
       }
    }
 

@@ -62,7 +62,7 @@ public final class BrandTextures {
                level++;
             }
          } catch (Exception var10) {
-            SoberClient.LOG.warn("Could not load SoberClient texture {}", name, var10);
+            SoberClient.LOG.warn("Could not load Copium Client texture {}", name, var10);
          }
 
          CACHE.put(name, levels);

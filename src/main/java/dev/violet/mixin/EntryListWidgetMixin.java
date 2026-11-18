@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_350.class})
 public abstract class EntryListWidgetMixin {
    private class_339 violet$self() {
-      return (class_339)this;
+      return (class_339)(Object)this;
    }
 
    @Inject(

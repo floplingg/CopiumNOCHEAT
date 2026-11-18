@@ -34,7 +34,7 @@ public final class GlintFit implements class_4588 {
          this.spanV = 1.0F;
       }
 
-      super.method_22920(matrixEntry, quad, brightnesses, red, green, blue, alpha, lights, overlay);
+      class_4588.super.method_22920(matrixEntry, quad, brightnesses, red, green, blue, alpha, lights, overlay);
    }
 
    public void method_23919(float x, float y, float z, int color, float u, float v, int overlay, int light, float normalX, float normalY, float normalZ) {

@@ -233,7 +233,7 @@ public final class Icons {
             }
 
             float edge = 3.4028235E38F;
-            int k = 0;
+            k = 0;
 
             for (int j = 9; k < 10; j = k++) {
                edge = Math.min(edge, segment(u, v, points[j * 2], points[j * 2 + 1], points[k * 2], points[k * 2 + 1], 0.0F));

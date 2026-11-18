@@ -409,7 +409,7 @@ public final class SpotifyPlayer extends BusModule {
                   SpotifyPlayer.this.publish(this, next, this.lyricsFor(next));
                }
             } catch (RuntimeException | LinkageError var41) {
-               SpotifyPlayer.LOGGER.debug("[Sober] Spotify HUD poll failed", var41);
+               SpotifyPlayer.LOGGER.debug("[Copium] Spotify HUD poll failed", var41);
             }
          }
       }
@@ -422,7 +422,7 @@ public final class SpotifyPlayer extends BusModule {
                try {
                   this.media = MediaSession.spotify();
                } catch (LinkageError var3) {
-                  SpotifyPlayer.LOGGER.warn("[Sober] Spotify HUD: media session unavailable ({})", var3.toString());
+                  SpotifyPlayer.LOGGER.warn("[Copium] Spotify HUD: media session unavailable ({})", var3.toString());
                   this.mediaFailed = true;
                   return null;
                }
@@ -459,7 +459,7 @@ public final class SpotifyPlayer extends BusModule {
                   try {
                      this.art = AlbumArt.decode(snapshot.thumbnail(), 256);
                   } catch (LinkageError | RuntimeException var3) {
-                     SpotifyPlayer.LOGGER.debug("[Sober] Spotify HUD: album art could not be decoded", var3);
+                     SpotifyPlayer.LOGGER.debug("[Copium] Spotify HUD: album art could not be decoded", var3);
                   }
                }
             }
@@ -494,7 +494,7 @@ public final class SpotifyPlayer extends BusModule {
       }
 
       private void windowFailed(LinkageError failure) {
-         SpotifyPlayer.LOGGER.warn("[Sober] Spotify HUD: Win32 access unavailable ({})", failure.toString());
+         SpotifyPlayer.LOGGER.warn("[Copium] Spotify HUD: Win32 access unavailable ({})", failure.toString());
          this.window = null;
          this.windowFailed = true;
       }
@@ -546,13 +546,13 @@ public final class SpotifyPlayer extends BusModule {
                   return;
                }
 
-               SpotifyPlayer.LOGGER.debug("[Sober] Spotify HUD: media session control failed ({}); sending the media key", this.media.lastError());
+               SpotifyPlayer.LOGGER.debug("[Copium] Spotify HUD: media session control failed ({}); sending the media key", this.media.lastError());
             }
 
             try {
                SpotifyWindow.tap(key);
             } catch (LinkageError | RuntimeException var31) {
-               SpotifyPlayer.LOGGER.debug("[Sober] Spotify HUD media key failed", var31);
+               SpotifyPlayer.LOGGER.debug("[Copium] Spotify HUD media key failed", var31);
             }
          }
       }
@@ -563,7 +563,7 @@ public final class SpotifyPlayer extends BusModule {
             if (!Objects.equals(error, this.lastError) || now - this.lastErrorLoggedAt >= 60000L) {
                this.lastError = error;
                this.lastErrorLoggedAt = now;
-               SpotifyPlayer.LOGGER.debug("[Sober] Spotify HUD media session: {}", error);
+               SpotifyPlayer.LOGGER.debug("[Copium] Spotify HUD media session: {}", error);
             }
          }
       }

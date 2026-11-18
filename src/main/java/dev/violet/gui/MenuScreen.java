@@ -45,7 +45,7 @@ public class MenuScreen extends class_437 {
    private float delta;
 
    public MenuScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
    }
 
    public static boolean enabled() {
@@ -462,7 +462,7 @@ public class MenuScreen extends class_437 {
       if (footer > 0.01F) {
          String version = FabricLoader.getInstance().getModContainer("minecraft").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
          brand(context, 15.0F, (float)(this.field_22790 - 25), 14.0F, footer);
-         text(context, "SoberClient", 26.0F, (float)(this.field_22790 - 29), 1.0F, alpha(-986380, footer));
+         text(context, "Copium Client", 26.0F, (float)(this.field_22790 - 29), 1.0F, alpha(-986380, footer));
          text(
             context,
             "Minecraft " + version + "  /  " + FabricLoader.getInstance().getAllMods().size() + " mods",

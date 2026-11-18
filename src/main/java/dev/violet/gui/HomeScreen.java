@@ -84,7 +84,7 @@ public class HomeScreen extends class_437 {
    private float introShift;
 
    public HomeScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
    }
 
    protected void method_25426() {
@@ -732,7 +732,7 @@ public class HomeScreen extends class_437 {
             this.fade = alpha;
             MainMenu menu = SoberClient.MODULES.get(MainMenu.class);
             boolean sound = menu == null || menu.audio.get();
-            String version = FabricLoader.getInstance().getModContainer("soberclient").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
+            String version = FabricLoader.getInstance().getModContainer("copium").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
             this.text(context, "SOBERCLIENT", 14.0F, 12.0F, 0.72F, -7367779);
             this.text(context, "V" + version, (float)(this.field_22789 - 14) - this.textWidth("V" + version, 0.72F), 12.0F, 0.72F, -7367779);
             boolean overSound = mouseX >= 8 && mouseX < 90 && mouseY >= this.field_22790 - 24 && mouseY < this.field_22790 - 4;
@@ -872,7 +872,7 @@ public class HomeScreen extends class_437 {
       ScreenStyle.topLight(context, 20, 8, 820, 17, 0.35F * this.fade);
       Smooth.glow(context, 42, 25, 16, this.f(alpha(4059872, 0.3F)));
       this.logo(context, 32.0F, 15.0F, 20.0F);
-      this.text(context, "SoberClient", 58.0F, 20.0F, 1.15F, -855051);
+      this.text(context, "Copium Client", 58.0F, 20.0F, 1.15F, -855051);
       String name = this.shownName();
       int pill = Math.round(30.0F + this.textWidth(name, 1.0F));
       int pillX = 830 - pill;
@@ -910,7 +910,7 @@ public class HomeScreen extends class_437 {
          double angle = 6.283185307179586 * (double)k / 8.0;
          CrispText.draw(
             context,
-            "SoberClient",
+            "Copium Client",
             "montserrat-bold.ttf",
             112.0F + (float)Math.cos(angle) * 1.6F,
             136.0F + (float)Math.sin(angle) * 1.6F,
@@ -920,10 +920,10 @@ public class HomeScreen extends class_437 {
          );
       }
 
-      CrispText.draw(context, "SoberClient", "montserrat-bold.ttf", 112.0F, 136.0F, 37.0F, -0.01F, this.f(-855051));
+      CrispText.draw(context, "Copium Client", "montserrat-bold.ttf", 112.0F, 136.0F, 37.0F, -0.01F, this.f(-855051));
       String minecraft = FabricLoader.getInstance().getModContainer("minecraft").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
-      String violet = FabricLoader.getInstance().getModContainer("soberclient").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
-      this.text(context, "Fabric " + minecraft + "  ·  SoberClient " + violet, 76.0F, 150.0F, 1.0F, -4275510);
+      String violet = FabricLoader.getInstance().getModContainer("copium").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
+      this.text(context, "Fabric " + minecraft + "  ·  Copium Client " + violet, 76.0F, 150.0F, 1.0F, -4275510);
    }
 
    private void drawTile(class_332 context, HomeScreen.Tile tile, boolean over) {
@@ -1054,7 +1054,7 @@ public class HomeScreen extends class_437 {
 
    private void footer(class_332 context) {
       String minecraft = FabricLoader.getInstance().getModContainer("minecraft").map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("");
-      this.text(context, "SoberClient  ·  Minecraft " + minecraft, 22.0F, 420.0F, 0.85F, -7367779);
+      this.text(context, "Copium Client  ·  Minecraft " + minecraft, 22.0F, 420.0F, 0.85F, -7367779);
       String copyright = "Copyright Mojang AB. Do not distribute!";
       this.text(context, copyright, 838.0F - this.textWidth(copyright, 0.85F), 420.0F, 0.85F, -7367779);
    }

@@ -46,7 +46,7 @@ public final class VanillaPlusScreen extends class_437 {
    private Supplier<class_8685> skin;
 
    public VanillaPlusScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
    }
 
    public boolean method_25422() {
@@ -384,7 +384,7 @@ public final class VanillaPlusScreen extends class_437 {
    }
 
    private void drawFooter(class_332 context, int mouseX, int mouseY) {
-      String left = "Minecraft " + class_155.method_16673().comp_4025() + "  ·  Fabric  ·  SoberClient " + version("soberclient");
+      String left = "Minecraft " + class_155.method_16673().comp_4025() + "  ·  Fabric  ·  Copium Client " + version("copium");
       MenuKit.text(context, left, 5.0F, (float)this.field_22790 - 9.0F, 0.6F, this.c(-922746881), false);
       boolean over = this.overCopyright((double)mouseX, (double)mouseY);
       float w = MenuKit.width("Copyright Mojang AB. Do not distribute!", 0.6F, false);

@@ -26,12 +26,12 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public final class ConfigSlots {
    public static final int COUNT = 5;
-   public static final String FORMAT = "soberclient-config";
-   public static final String PREFIX = "SC-";
-   private static final String OLD_PREFIX = "YC-";
+   public static final String FORMAT = "copium-config";
+   public static final String PREFIX = "CP-";
+   private static final String OLD_PREFIX = "CP-";
    private static final List<Class<? extends Module>> SENSITIVE = List.of();
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("soberclient-configs.json");
+   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("copium-configs.json");
    private static final String[] NAMES = new String[5];
    private static final long[] SAVED_AT = new long[5];
    private static final JsonObject[] STATES = new JsonObject[5];
@@ -169,7 +169,7 @@ public final class ConfigSlots {
 
    public static String unpack(String payload) {
       if (!payload.startsWith("Y1:")) {
-         throw new IllegalArgumentException("This code does not belong to a SoberClient config.");
+         throw new IllegalArgumentException("This code does not belong to a Copium Client config.");
       } else {
          try {
             return decode(payload.substring(3));
@@ -315,7 +315,7 @@ public final class ConfigSlots {
          }
 
          JsonObject root = new JsonObject();
-         root.addProperty("format", "soberclient-config");
+         root.addProperty("format", "copium-config");
          root.addProperty("version", 1);
          root.addProperty("name", NAMES[slot]);
          root.addProperty("savedAt", SAVED_AT[slot]);
@@ -327,7 +327,7 @@ public final class ConfigSlots {
 
    private static String version() {
       return FabricLoader.getInstance()
-         .getModContainer("soberclient")
+         .getModContainer("copium")
          .map(container -> container.getMetadata().getVersion().getFriendlyString())
          .orElse("1.0.0");
    }
@@ -437,7 +437,7 @@ public final class ConfigSlots {
       try {
          root = JsonParser.parseString(decode(body)).getAsJsonObject();
       } catch (Exception var9) {
-         throw new IllegalArgumentException("This SC- code is broken or incomplete.");
+         throw new IllegalArgumentException("This CP- code is broken or incomplete.");
       }
 
       JsonObject coded = root.has("m") && root.get("m").isJsonObject() ? root.getAsJsonObject("m") : new JsonObject();
@@ -464,16 +464,16 @@ public final class ConfigSlots {
       ensureLoaded();
       if (text != null && !text.isBlank()) {
          String compact = text.replaceAll("\\s+", "");
-         if (!compact.startsWith("SC-") && !compact.startsWith("YC-")) {
+         if (!compact.startsWith("CP-") && !compact.startsWith("CP-")) {
             JsonObject root;
             try {
                root = JsonParser.parseString(text.strip()).getAsJsonObject();
             } catch (Exception var10) {
-               throw new IllegalArgumentException("This is not a SoberClient config. Copy the whole text from the first { to the last }.");
+               throw new IllegalArgumentException("This is not a Copium Client config. Copy the whole text from the first { to the last }.");
             }
 
-            if (!"soberclient-config".equals(text(root, "format"))) {
-               throw new IllegalArgumentException("This is not a SoberClient config.");
+            if (!"copium-config".equals(text(root, "format"))) {
+               throw new IllegalArgumentException("This is not a Copium Client config.");
             } else {
                JsonObject state = root.has("state") && root.get("state").isJsonObject() ? root.getAsJsonObject("state") : null;
                if (state != null && state.has("modules") && state.get("modules").isJsonObject()) {
@@ -493,7 +493,7 @@ public final class ConfigSlots {
                }
             }
          } else {
-            return importCode(slot, compact.substring("SC-".length()));
+            return importCode(slot, compact.substring("CP-".length()));
          }
       } else {
          throw new IllegalArgumentException("Your clipboard is empty.");

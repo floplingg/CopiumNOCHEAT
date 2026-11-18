@@ -902,7 +902,7 @@ public class MultiplayerGridScreen extends class_500 {
          this.topLight(context, 20.0F, 8.0F, 820.0F, 17, 0.35F);
          Smooth.glow(context, 42, 25, 16, this.f(alpha(4059872, 0.3F)));
          Logo3D.draw(context, 42.0F, 25.0F, 20.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, this.fade, 0.7F);
-         this.text(context, "SoberClient", 58.0F, 20.0F, 1.15F, -855051);
+         this.text(context, "Copium Client", 58.0F, 20.0F, 1.15F, -855051);
          String name = this.shownName();
          int pill = Math.round(30.0F + this.textWidth(name, 1.0F));
          int pillX = 830 - pill;

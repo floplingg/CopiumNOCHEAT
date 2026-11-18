@@ -34,7 +34,7 @@ public final class PauseMenuButton {
                   class_4185 button = new PauseMenuButton.LogoButton(
                      widget.method_46426() + widget.method_25368() + 4, widget.method_46427(), 20, widget.method_25364(), pressed -> open(client)
                   );
-                  button.method_47400(class_7919.method_47407(class_2561.method_43470("SoberClient Menu")));
+                  button.method_47400(class_7919.method_47407(class_2561.method_43470("Copium Client Menu")));
                   buttons.add(button);
                   return;
                }
@@ -57,7 +57,7 @@ public final class PauseMenuButton {
 
    private static final class LogoButton extends class_4185 {
       LogoButton(int x, int y, int width, int height, class_4241 action) {
-         super(x, y, width, height, class_2561.method_43470("SoberClient"), action, field_40754);
+         super(x, y, width, height, class_2561.method_43470("Copium Client"), action, field_40754);
       }
 
       protected void method_75752(class_332 context, int mouseX, int mouseY, float deltaTicks) {

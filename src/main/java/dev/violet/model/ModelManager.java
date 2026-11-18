@@ -115,7 +115,7 @@ public final class ModelManager {
       Map<String, Set<String>> foundPacks = new HashMap<>();
 
       try (Stream<Path> stream = Files.list(folder())) {
-         for (Path path : stream::iterator) {
+         for (Path path : (Iterable<Path>)stream::iterator) {
             String name = path.getFileName().toString();
             if (Files.isDirectory(path)) {
                if (!BUILTIN_PACKS.containsKey(name + "/") && !"Watery/".equals(name + "/")) {

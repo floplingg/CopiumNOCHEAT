@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "soberclient",
-  "version": "1.0.0",
-  "name": "SoberClient",
-  "description": "Base finding and DonutSMP utility client with animated skies. discord.gg/soberclient",
+  "id": "copium",
+  "version": "${version}",
+  "name": "Copium Client",
+  "description": "Visuals-only Fabric client: animated skies, HUD, Spotify player, custom crosshairs, glints and cosmetics. No cheats. Forked from SoberClient by Violet.",
   "authors": [
-    "Violet"
+    "floplingg"
   ],
-  "license": "GPL-3.0-only",
+  "license": "GPL-3.0-or-later",
   "icon": "assets/violet/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -16,13 +16,21 @@
     ]
   },
   "mixins": [
-    "soberclient.mixins.json",
-    "soberclient.features.mixins.json"
+    "copium.mixins.json",
+    "copium.features.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.18.2",
     "fabric-api": "*",
     "minecraft": "1.21.11",
     "java": ">=21"
+  },
+  "contributors": [
+    "Violet (SoberClient)",
+    "2660master (SkyFX)"
+  ],
+  "contact": {
+    "sources": "https://github.com/floplingg/CopiumNOCHEAT",
+    "homepage": "https://github.com/floplingg/CopiumNOCHEAT"
   }
 }

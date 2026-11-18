@@ -21,7 +21,7 @@ public class JumpCircles extends Module {
    private final Setting<JumpCircles.Style> style = this.add(
       new EnumSetting<>(
          "Style",
-         "Sober Badge is a dark disc with the dripping chrome Sober logo in a chrome ring. Chrome Drip is only the chrome ring with liquid drops. Chrome Bottle is the SoberClient bottle. Glow Ring is a plain glowing ring.",
+         "Copium Badge is a dark disc with the dripping chrome Copium logo in a chrome ring. Chrome Drip is only the chrome ring with liquid drops. Chrome Bottle is the Copium Client bottle. Glow Ring is a plain glowing ring.",
          JumpCircles.Style.Badge
       )
    );
@@ -42,7 +42,7 @@ public class JumpCircles extends Module {
    private int turn = 1;
 
    public JumpCircles() {
-      super("Jump Circles", "A dripping chrome SoberClient circle spreads out on the ground under you every time you jump.", Category.VISUALS);
+      super("Jump Circles", "A dripping chrome Copium Client circle spreads out on the ground under you every time you jump.", Category.VISUALS);
    }
 
    @Override
@@ -148,7 +148,7 @@ public class JumpCircles extends Module {
    }
 
    public static enum Style {
-      Badge("Sober Badge", "effects/jump_badge"),
+      Badge("Copium Badge", "effects/jump_badge"),
       Drip("Chrome Drip", "effects/jump_drip"),
       Bottle("Chrome Bottle", "effects/jump_bottle"),
       Ring("Glow Ring", "effects/jump_ring");

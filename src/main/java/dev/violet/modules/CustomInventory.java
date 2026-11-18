@@ -42,7 +42,7 @@ public class CustomInventory extends Module implements Presets {
       this.glow = this.add(new BoolSetting("Glow", "Soft glow and outline around the inventory.", true)).visible(this::styled);
       this.slots = this.add(new BoolSetting("Rounded Slots", "Draws clean rounded slots.", true))
          .visible(() -> this.styled() && this.style.get() != CustomInventory.Style.Tinted);
-      this.logo = this.add(new BoolSetting("Logo", "Shows the SoberClient logo on inventories.", true)).visible(this::styled);
+      this.logo = this.add(new BoolSetting("Logo", "Shows the Copium Client logo on inventories.", true)).visible(this::styled);
    }
 
    public boolean styled() {

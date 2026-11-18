@@ -47,7 +47,7 @@ public abstract class HandledScreenMixin<T extends class_1703> extends class_437
    private void violet$behind(class_332 context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
       try {
          InventoryStyle.behind(
-            context, this.field_22789, this.field_22790, this.field_2776, this.field_2800, this.field_2792, this.field_2779, this instanceof class_481
+            context, this.field_22789, this.field_22790, this.field_2776, this.field_2800, this.field_2792, this.field_2779, (Object)this instanceof class_481
          );
       } catch (RuntimeException var7) {
          SoberClient.LOG.error("Inventory style failed", var7);
@@ -65,7 +65,7 @@ public abstract class HandledScreenMixin<T extends class_1703> extends class_437
    )
    private void violet$over(class_332 context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
       try {
-         InventoryStyle.over(context, this.field_2776, this.field_2800, this.field_2792, this.field_2779, this.field_2797, this instanceof class_481);
+         InventoryStyle.over(context, this.field_2776, this.field_2800, this.field_2792, this.field_2779, this.field_2797, (Object)this instanceof class_481);
       } catch (RuntimeException var7) {
          SoberClient.LOG.error("Inventory style failed", var7);
       }

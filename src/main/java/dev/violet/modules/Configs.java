@@ -27,21 +27,21 @@ public class Configs extends Module implements Presets {
    public static final String[] TIPS = new String[]{
       "Saves your current modules, settings, keybinds and HUD positions into this config.",
       "Loads this config. All modules, settings, keybinds and HUD positions switch to it.",
-      "Uploads this config and copies a short code like SC-123456, or SC-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
+      "Uploads this config and copies a short code like CP-123456, or CP-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
       "Renames this config. Type the new name and press Enter.",
       "Deletes this config. Press it twice to confirm.",
-      "Copy a code like SC-123456 or SC-VIOLET or a shared config, then press Import. It is added as a new config.",
+      "Copy a code like CP-123456 or CP-COPIUM or a shared config, then press Import. It is added as a new config.",
       "Saves your current setup as a new config."
    };
    private final Setting<Integer> selected = this.add(new IntSetting("Selected", "", 0, 0, 4)).visible(() -> false);
    private final Setting<Boolean> importConfig = this.add(
-         new BoolSetting("Import", "Copy a code like SC-123456 or SC-VIOLET or a shared config, then press this. It is added as a new config.", false)
+         new BoolSetting("Import", "Copy a code like CP-123456 or CP-COPIUM or a shared config, then press this. It is added as a new config.", false)
       )
       .onChanged(v -> this.press(v, this.importConfig, () -> this.importText(null)));
    private final Setting<Boolean> export = this.add(
          new BoolSetting(
             "Share",
-            "Uploads the selected config and copies a short code like SC-123456, or SC-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
+            "Uploads the selected config and copies a short code like CP-123456, or CP-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
             false
          )
       )
@@ -59,7 +59,7 @@ public class Configs extends Module implements Presets {
    public final Setting<String> shareName = this.add(
       new StringSetting(
          "Share Name",
-         "Your own share code: type VIOLET to share as SC-VIOLET. Letters, numbers and _, 3 to 16 long. If someone else already uses the name, pick another. Empty gives a random number.",
+         "Your own share code: type COPIUM to share as CP-COPIUM. Letters, numbers and _, 3 to 16 long. If someone else already uses the name, pick another. Empty gives a random number.",
          ""
       ) {
          protected String validate(String value) {
@@ -68,7 +68,7 @@ public class Configs extends Module implements Presets {
 
          @Override
          public String display() {
-            return this.value.isEmpty() ? "Random number" : "SC-" + this.value;
+            return this.value.isEmpty() ? "Random number" : "CP-" + this.value;
          }
       }
    );
@@ -234,7 +234,7 @@ public class Configs extends Module implements Presets {
             this.store(slot, source);
          } else if (!this.busy) {
             this.busy = true;
-            Notifications.push("Configs", "Loading SC-" + code + "...", Notifications.Type.INFO);
+            Notifications.push("Configs", "Loading CP-" + code + "...", Notifications.Type.INFO);
             ConfigShare.download(code).whenComplete((json, error) -> mc.execute(() -> {
                   this.busy = false;
                   if (error == null) {

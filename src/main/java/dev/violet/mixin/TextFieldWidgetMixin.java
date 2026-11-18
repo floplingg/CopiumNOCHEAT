@@ -47,7 +47,7 @@ public abstract class TextFieldWidgetMixin {
       if (!ScreenStyle.widgets()) {
          original.call(new Object[]{context, pipeline, sprite, x, y, width, height});
       } else {
-         ScreenStyle.textField(context, this, x, y, width, height, ((class_342)this).method_25370());
+         ScreenStyle.textField(context, this, x, y, width, height, ((class_342)(Object)this).method_25370());
       }
    }
 
@@ -57,7 +57,7 @@ public abstract class TextFieldWidgetMixin {
       require = 0
    )
    private void violet$trackTyping(class_332 context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
-      this.violet$times = AnimatedTyping.track(this.violet$lastText, this.field_2092, this.violet$times, AnimatedTyping.applies((class_342)this));
+      this.violet$times = AnimatedTyping.track(this.violet$lastText, this.field_2092, this.violet$times, AnimatedTyping.applies((class_342)(Object)this));
       this.violet$lastText = this.field_2092;
    }
 
@@ -71,7 +71,7 @@ public abstract class TextFieldWidgetMixin {
       require = 0
    )
    private void violet$typedBefore(class_332 context, class_327 renderer, class_5481 value, int x, int y, int color, boolean shadow, Operation<Void> original) {
-      if (this.violet$times != null && AnimatedTyping.applies((class_342)this)) {
+      if (this.violet$times != null && AnimatedTyping.applies((class_342)(Object)this)) {
          AnimatedTyping.draw(context, renderer, value, x, y, color, shadow, this.violet$times, this.field_2103);
       } else {
          original.call(new Object[]{context, renderer, value, x, y, color, shadow});
@@ -88,7 +88,7 @@ public abstract class TextFieldWidgetMixin {
       require = 0
    )
    private void violet$typedAfter(class_332 context, class_327 renderer, class_5481 value, int x, int y, int color, boolean shadow, Operation<Void> original) {
-      if (this.violet$times != null && AnimatedTyping.applies((class_342)this)) {
+      if (this.violet$times != null && AnimatedTyping.applies((class_342)(Object)this)) {
          AnimatedTyping.draw(context, renderer, value, x, y, color, shadow, this.violet$times, this.field_2102);
       } else {
          original.call(new Object[]{context, renderer, value, x, y, color, shadow});
@@ -138,7 +138,7 @@ public abstract class TextFieldWidgetMixin {
 
    @Unique
    private float violet$glide(int target) {
-      if (AnimatedTyping.applies((class_342)this) && AnimatedTyping.smoothCursor()) {
+      if (AnimatedTyping.applies((class_342)(Object)this) && AnimatedTyping.smoothCursor()) {
          long now = class_156.method_658();
          this.violet$caret = AnimatedTyping.glide(this.violet$caret, (float)target, this.violet$caretFrame, now);
          this.violet$caretFrame = now;

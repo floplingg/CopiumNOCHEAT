@@ -47,7 +47,7 @@ public class MediaHider extends Module {
    private final Setting<Integer> opacity;
 
    public MediaHider() {
-      super("Media Hider", "Covers your inventory and hotbar with the SoberClient banner, for videos and streams.", Category.CLIENT);
+      super("Media Hider", "Covers your inventory and hotbar with the Copium Client banner, for videos and streams.", Category.CLIENT);
       this.group("Inventory");
       this.inventory = this.add(
          new BoolSetting(
@@ -243,10 +243,10 @@ public class MediaHider extends Module {
    }
 
    public static enum Picture {
-      Banner("Sober Banner", "sober_banner", 1774, 887),
+      Banner("Copium Banner", "sober_banner", 1774, 887),
       Discord("Discord Banner", "sober_discord", 1774, 887),
-      Strip("Sober Strip", "sober_strip", 1774, 95),
-      Bottle("Sober Bottle", "sober_bottle", 512, 512);
+      Strip("Copium Strip", "sober_strip", 1774, 95),
+      Bottle("Copium Bottle", "sober_bottle", 512, 512);
 
       private final String title;
       private final class_2960 texture;

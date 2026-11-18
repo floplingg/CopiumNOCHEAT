@@ -78,7 +78,7 @@ public final class PanelScreen extends class_437 {
    private String tooltip;
 
    public PanelScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
       this.pane.palette(PALETTE);
    }
 

@@ -18,7 +18,7 @@ public class CustomCrosshair extends Module {
    private final Setting<CustomCrosshair.Style> style = this.add(
       new EnumSetting<>(
          "Style",
-         "Palm is the SoberClient logo, Island Sun a dot with rays, Wave a wavy ring, SoberClient Y three arms, plus classic Cross, Ring, Brackets and Dot.",
+         "Palm is the Copium Client logo, Island Sun a dot with rays, Wave a wavy ring, Copium Client Y three arms, plus classic Cross, Ring, Brackets and Dot.",
          CustomCrosshair.Style.Palm
       )
    );
@@ -58,7 +58,7 @@ public class CustomCrosshair extends Module {
    public CustomCrosshair() {
       super(
          "Custom Crosshair",
-         "Replaces the Minecraft crosshair with SoberClient designs in your theme color, with an animated attack indicator.",
+         "Replaces the Minecraft crosshair with Copium Client designs in your theme color, with an animated attack indicator.",
          Category.VISUALS
       );
    }
@@ -229,7 +229,7 @@ public class CustomCrosshair extends Module {
       Palm("Palm", CrosshairRenderer.Shape.PALM),
       Sun("Island Sun", CrosshairRenderer.Shape.SUN),
       Wave("Wave", CrosshairRenderer.Shape.WAVE),
-      Y("SoberClient Y", CrosshairRenderer.Shape.Y),
+      Y("Copium Client Y", CrosshairRenderer.Shape.Y),
       Cross("Cross", CrosshairRenderer.Shape.CROSS),
       Ring("Ring", CrosshairRenderer.Shape.RING),
       Brackets("Brackets", CrosshairRenderer.Shape.BRACKETS),

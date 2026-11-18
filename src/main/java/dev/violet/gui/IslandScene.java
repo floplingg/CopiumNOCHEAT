@@ -23,12 +23,12 @@ final class IslandScene {
    private static final float TITLE_LEFT = -318.8F;
    private static final float TITLE_WIDTH = 2594.6F;
    private static final float[][] LETTERS = new float[][]{
-      {-35.0F, -366.0F, 414.0F, 400.0F},
-      {383.0F, -360.0F, 157.0F, 398.0F},
-      {557.0F, -367.0F, 428.0F, 407.0F},
-      {1004.0F, -368.0F, 311.0F, 406.0F},
-      {1322.0F, -367.0F, 328.0F, 405.0F},
-      {1634.0F, -368.0F, 358.0F, 404.0F}
+      {-85.0F, -366.0F, 347.0F, 400.0F},
+      {270.0F, -360.0F, 348.0F, 398.0F},
+      {626.0F, -367.0F, 356.0F, 407.0F},
+      {990.0F, -368.0F, 253.0F, 406.0F},
+      {1251.0F, -367.0F, 360.0F, 405.0F},
+      {1619.0F, -368.0F, 423.0F, 404.0F}
    };
    private static final float[][] CLOUDS = new float[][]{
       {0.08F, 0.4F, 0.17F, 0.0F, 0.0075F, 1.0F},

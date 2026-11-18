@@ -85,17 +85,17 @@ public class SoberClient implements ClientModInitializer {
 
    private static void importLegacyConfig() {
       Path dir = FabricLoader.getInstance().getConfigDir();
-      if (!Files.exists(dir.resolve("soberclient.json"))) {
+      if (!Files.exists(dir.resolve("copium.json"))) {
          String old = Files.exists(dir.resolve("violetclient.json")) ? "violetclient" : "yepstein";
          if (!old.equals("yepstein") || Files.exists(dir.resolve("yepstein-client.json"))) {
             String main = old.equals("violetclient") ? "violetclient.json" : "yepstein-client.json";
             String areas = old.equals("violetclient") ? "violetclient-areas.json" : "yepstein-client-areas.json";
             String[][] files = new String[][]{
-               {main, "soberclient.json"},
-               {old + "-configs.json", "soberclient-configs.json"},
-               {old + "-dropdown.json", "soberclient-dropdown.json"},
-               {old + "-hud-layout.json", "soberclient-hud-layout.json"},
-               {areas, "soberclient-areas.json"}
+               {main, "copium.json"},
+               {old + "-configs.json", "copium-configs.json"},
+               {old + "-dropdown.json", "copium-dropdown.json"},
+               {old + "-hud-layout.json", "copium-hud-layout.json"},
+               {areas, "copium-areas.json"}
             };
 
             try {
@@ -111,7 +111,7 @@ public class SoberClient implements ClientModInitializer {
                Path newDir = dir.resolve("violet");
                if (Files.isDirectory(oldDir) && !Files.exists(newDir)) {
                   try (Stream<Path> paths = Files.walk(oldDir)) {
-                     for (Path path : paths::iterator) {
+                     for (Path path : (Iterable<Path>)paths::iterator) {
                         Path target = newDir.resolve(oldDir.relativize(path).toString());
                         if (Files.isDirectory(path)) {
                            Files.createDirectories(target);
@@ -247,6 +247,6 @@ public class SoberClient implements ClientModInitializer {
       );
       HudElementRegistry.addLast(class_2960.method_60655("violet", "module_list"), HudRenderer::render);
       CompletionChannel.install();
-      LOG.info("SoberClient loaded with {} modules", MODULES.all().size());
+      LOG.info("Copium Client loaded with {} modules", MODULES.all().size());
    }
 }

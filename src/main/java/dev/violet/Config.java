@@ -26,7 +26,7 @@ public final class Config {
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
    private static final Map<String, String> LEGACY = Map.of("Relog Method", "Y Relog", "SusChunks", "Better Sus Chunk");
    private static final int BACKUPS = 5;
-   private final Path file = FabricLoader.getInstance().getConfigDir().resolve("soberclient.json");
+   private final Path file = FabricLoader.getInstance().getConfigDir().resolve("copium.json");
    private final Path backups = FabricLoader.getInstance().getConfigDir().resolve("violet").resolve("backups");
    private final ModuleManager modules;
    private final Map<String, JsonObject> unread = new HashMap<>();
@@ -96,10 +96,10 @@ public final class Config {
       try {
          Files.createDirectories(this.backups);
          String stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-         Files.copy(this.file, this.backups.resolve("soberclient_" + stamp + ".json"), StandardCopyOption.REPLACE_EXISTING);
+         Files.copy(this.file, this.backups.resolve("copium_" + stamp + ".json"), StandardCopyOption.REPLACE_EXISTING);
 
          try (Stream<Path> stream = Files.list(this.backups)) {
-            for (Path path : stream.filter(pathx -> pathx.getFileName().toString().startsWith("soberclient_"))
+            for (Path path : stream.filter(pathx -> pathx.getFileName().toString().startsWith("copium_"))
                .sorted(Comparator.reverseOrder())
                .skip(5L)
                .toList()) {

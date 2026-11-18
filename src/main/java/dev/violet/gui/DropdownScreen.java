@@ -92,7 +92,7 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
    private static int ACCENT = -2762274;
    private static int VALUE = 352321535;
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("soberclient-dropdown.json");
+   private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("copium-dropdown.json");
    private static final EnumMap<Category, DropdownScreen.Panel> PANELS = new EnumMap<>(Category.class);
    private static final List<DropdownScreen.Panel> ORDER = new ArrayList<>();
    private static final Set<Module> EXPANDED = new HashSet<>();
@@ -148,7 +148,7 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
    }
 
    public DropdownScreen() {
-      super(class_2561.method_43470("SoberClient"));
+      super(class_2561.method_43470("Copium Client"));
    }
 
    public boolean method_25421() {
@@ -1474,7 +1474,7 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
          if (shown == 0) {
             String title = "NO CONFIGS YET";
             this.text(context, title, x + (w - this.textWidth(title)) / 2, y + 110, TEXT);
-            String hint = this.fit("Save your setup with + Add Config, or copy a code like SC-123456 and press Import.", w - 24);
+            String hint = this.fit("Save your setup with + Add Config, or copy a code like CP-123456 and press Import.", w - 24);
             this.text(context, hint, x + (w - this.textWidth(hint)) / 2, y + 126, MUTED);
          }
 
@@ -1780,8 +1780,8 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
                   MenuKit.openLink((String)hit.target());
                   break;
                case PANEL:
-                  if (hit.target() instanceof DropdownScreen.Panel panel) {
-                     this.front(panel);
+                  if (hit.target() instanceof DropdownScreen.Panel hitPanel) {
+                     this.front(hitPanel);
                   }
             }
 

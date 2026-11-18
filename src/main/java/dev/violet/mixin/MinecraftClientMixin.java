@@ -27,7 +27,7 @@ public class MinecraftClientMixin {
    )
    private void violet$customMenu(class_437 screen, CallbackInfo ci) {
       try {
-         class_310 client = (class_310)this;
+         class_310 client = (class_310)(Object)this;
          boolean title = screen instanceof class_442 || screen == null && client.field_1687 == null;
          if (!title || !MenuScreen.enabled()) {
             return;
@@ -56,7 +56,7 @@ public class MinecraftClientMixin {
          try {
             class_437 grid = MultiplayerGridScreen.replace((class_500)screen);
             ci.cancel();
-            ((class_310)this).method_1507(grid);
+            ((class_310)(Object)this).method_1507(grid);
          } catch (RuntimeException var4) {
             SoberClient.LOG.error("Custom multiplayer screen failed", var4);
          }

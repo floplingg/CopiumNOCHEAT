@@ -13,7 +13,7 @@ public class AccessoryFeature extends class_3887<class_10055, class_591> {
       super(context);
    }
 
-   public void render(class_4587 matrices, class_11659 queue, int light, class_10055 state, float limbAngle, float limbDistance) {
+   public void method_4199(class_4587 matrices, class_11659 queue, int light, class_10055 state, float limbAngle, float limbDistance) {
       CustomAccessories.render((class_591)this.method_17165(), state, matrices, queue, light, limbAngle, limbDistance);
    }
 }

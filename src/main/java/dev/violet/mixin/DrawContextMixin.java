@@ -30,7 +30,7 @@ public abstract class DrawContextMixin {
                return;
             }
 
-            class_332 context = (class_332)this;
+            class_332 context = (class_332)(Object)this;
             context.method_25302(class_10799.field_56883, icon, x, y, 0.0F, 0.0F, 16, 16, 64, 64, 64, 64);
             ci.cancel();
          } catch (RuntimeException var11) {
