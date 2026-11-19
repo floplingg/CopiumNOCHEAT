@@ -789,8 +789,6 @@ final class SettingsPane {
       }
 
       float ty = by + 30.0F;
-      this.drawSetting(context, configs.shareName, x, ty, w, mx, my);
-      ty += 26.0F;
 
       for (String line : MenuKit.wrap(
          "Configs only hold visual settings, so imported configs are always safe to try.", (float)w, 0.62F, false

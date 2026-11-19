@@ -1,6 +1,5 @@
 package dev.violet.modules;
 
-import dev.violet.ConfigShare;
 import dev.violet.ConfigSlots;
 import dev.violet.SoberClient;
 import dev.violet.gui.Notifications;
@@ -27,21 +26,21 @@ public class Configs extends Module implements Presets {
    public static final String[] TIPS = new String[]{
       "Saves your current modules, settings, keybinds and HUD positions into this config.",
       "Loads this config. All modules, settings, keybinds and HUD positions switch to it.",
-      "Uploads this config and copies a short code like CP-123456, or CP-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
+      "Copies this config as text you can send to a friend. Nothing is uploaded.",
       "Renames this config. Type the new name and press Enter.",
       "Deletes this config. Press it twice to confirm.",
-      "Copy a code like CP-123456 or CP-COPIUM or a shared config, then press Import. It is added as a new config.",
+      "Copy a config someone sent you, then press Import. It is added as a new config.",
       "Saves your current setup as a new config."
    };
    private final Setting<Integer> selected = this.add(new IntSetting("Selected", "", 0, 0, 4)).visible(() -> false);
    private final Setting<Boolean> importConfig = this.add(
-         new BoolSetting("Import", "Copy a code like CP-123456 or CP-COPIUM or a shared config, then press this. It is added as a new config.", false)
+         new BoolSetting("Import", "Copy a config someone sent you, then press this. It is added as a new config.", false)
       )
       .onChanged(v -> this.press(v, this.importConfig, () -> this.importText(null)));
    private final Setting<Boolean> export = this.add(
          new BoolSetting(
             "Share",
-            "Uploads the selected config and copies a short code like CP-123456, or CP-YOURNAME when you set a Share Name. Anyone who has the code can load it.",
+            "Copies the selected config as text you can send to a friend. Nothing is uploaded.",
             false
          )
       )
@@ -56,23 +55,6 @@ public class Configs extends Module implements Presets {
       .onChanged(v -> this.press(v, this.activate, this::activateSlot));
    private final Setting<Boolean> delete = this.add(new BoolSetting("Delete", "Deletes the selected config. Press it twice to confirm.", false))
       .onChanged(v -> this.press(v, this.delete, this::deleteSlot));
-   public final Setting<String> shareName = this.add(
-      new StringSetting(
-         "Share Name",
-         "Your own share code: type COPIUM to share as CP-COPIUM. Letters, numbers and _, 3 to 16 long. If someone else already uses the name, pick another. Empty gives a random number.",
-         ""
-      ) {
-         protected String validate(String value) {
-            return ConfigShare.cleanName(value);
-         }
-
-         @Override
-         public String display() {
-            return this.value.isEmpty() ? "Random number" : "CP-" + this.value;
-         }
-      }
-   );
-   private final Setting<String> ownCodes = this.add(new StringSetting("Own Codes", "", "")).visible(() -> false);
    private final Setting<String> rename = this.add(new StringSetting("Rename", "Type a new name for the selected config and press Enter.", ConfigSlots.name(0)))
       .onChanged(v -> ConfigSlots.rename(this.slot(), v));
    private int deleteSlot = -1;
@@ -198,28 +180,12 @@ public class Configs extends Module implements Presets {
       String json = ConfigSlots.export(slot);
       if (json == null) {
          Notifications.push("Configs", ConfigSlots.name(slot) + " is empty. Press Save first.", Notifications.Type.WARNING);
-      } else if (!this.busy) {
-         this.busy = true;
-         String name = ConfigSlots.name(slot);
-         Notifications.push("Configs", "Uploading " + name + "...", Notifications.Type.INFO);
-         String chosen = this.shareName.get();
-         ConfigShare.upload(json, chosen, this.ownCodes()).whenComplete((code, error) -> mc.execute(() -> {
-               this.busy = false;
-               if (error == null) {
-                  if (!chosen.isEmpty() && !this.ownCodes().contains(chosen)) {
-                     this.ownCodes.set(this.ownCodes.get().isEmpty() ? chosen : this.ownCodes.get() + "," + chosen);
-                  }
-
-                  SoberClient.CONFIG.save();
-                  mc.field_1774.method_1455(code);
-                  Notifications.push("Configs", code + " copied. Anyone who has this code can load " + name + ".", Notifications.Type.SUCCESS);
-               } else if (root(error) instanceof IllegalArgumentException) {
-                  Notifications.push("Configs", cause(error), Notifications.Type.ERROR);
-               } else {
-                  mc.field_1774.method_1455(json);
-                  Notifications.push("Configs", "Upload failed, so the full config text was copied instead. " + cause(error), Notifications.Type.WARNING);
-               }
-            }));
+      } else {
+         mc.field_1774.method_1455(json);
+         Notifications.push(
+            "Configs", ConfigSlots.name(slot) + " copied. Send that text to a friend; they copy it and press Import.", Notifications.Type.SUCCESS
+         )
+         ;
       }
    }
 
@@ -229,34 +195,8 @@ public class Configs extends Module implements Presets {
       if (slot < 0) {
          Notifications.push("Configs", "All 5 configs are used. Delete one first.", Notifications.Type.WARNING);
       } else {
-         String code = ConfigShare.shortCode(source);
-         if (code == null) {
-            this.store(slot, source);
-         } else if (!this.busy) {
-            this.busy = true;
-            Notifications.push("Configs", "Loading CP-" + code + "...", Notifications.Type.INFO);
-            ConfigShare.download(code).whenComplete((json, error) -> mc.execute(() -> {
-                  this.busy = false;
-                  if (error == null) {
-                     this.store(slot, json);
-                  } else {
-                     Notifications.push("Configs", cause(error), Notifications.Type.ERROR);
-                  }
-               }));
-         }
+         this.store(slot, source);
       }
-   }
-
-   private Set<String> ownCodes() {
-      Set<String> codes = new HashSet<>();
-
-      for (String part : this.ownCodes.get().split(",")) {
-         if (!part.isBlank()) {
-            codes.add(part.strip());
-         }
-      }
-
-      return codes;
    }
 
    private void store(int slot, String source) {

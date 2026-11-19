@@ -244,7 +244,7 @@ public class MediaHider extends Module {
 
    public static enum Picture {
       Banner("Copium Banner", "sober_banner", 1774, 887),
-      Discord("Discord Banner", "sober_discord", 1774, 887),
+      Discord("Copium Vibes", "sober_discord", 1774, 887),
       Strip("Copium Strip", "sober_strip", 1774, 95),
       Bottle("Copium Bottle", "sober_bottle", 512, 512);
 

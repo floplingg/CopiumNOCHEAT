@@ -3,7 +3,6 @@ package dev.violet.gui;
 import dev.violet.SoberClient;
 import dev.violet.modules.MainMenu;
 import dev.violet.modules.NameTags;
-import dev.violet.modules.SkinChange;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,18 +117,6 @@ public class HomeScreen extends class_437 {
       this.nameField.method_47404(class_2561.method_43470("Name on your screen").method_10862(Theme.crispStyle().method_36139(7040888)));
       this.nameField.method_1863(value -> NameTags.setCustomName(value.trim()));
       this.method_37063(this.nameField);
-      this.skinField = new class_342(this.field_22793, this.px(624.0F), this.py(343.0F) + inset, fieldWidth, 10, class_2561.method_43470("Skin"));
-      styleField(this.skinField);
-      this.skinField.method_1880(16);
-      this.skinField.method_1890(value -> value.matches("[A-Za-z0-9_]*"));
-      SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-      this.skinField.method_1852(skins == null ? "" : skins.selfPlayer());
-      this.skinField.method_47404(class_2561.method_43470("Wear a player's skin").method_10862(Theme.crispStyle().method_36139(7040888)));
-      this.skinField.method_1863(value -> {
-         this.pendingSkin = value.trim();
-         this.skinChangedAt = System.currentTimeMillis();
-      });
-      this.method_37063(this.skinField);
       this.showWidgets(false);
       if (!this.shown) {
          this.shown = true;
@@ -145,8 +132,7 @@ public class HomeScreen extends class_437 {
    }
 
    private class_8685 worn(class_8685 original) {
-      SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-      return skins != null && skins.isActive() ? skins.selfSkin(original) : original;
+      return original;
    }
 
    private void loadServers() {
@@ -251,11 +237,6 @@ public class HomeScreen extends class_437 {
    }
 
    private void applySkin() {
-      SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-      if (skins != null && this.pendingSkin != null) {
-         skins.setSelfPlayer(this.pendingSkin);
-      }
-
       this.pendingSkin = null;
    }
 
@@ -661,7 +642,9 @@ public class HomeScreen extends class_437 {
       if (this.skinWidget != null) {
          this.skinWidget.field_22764 = visible;
          this.nameField.field_22764 = visible;
-         this.skinField.field_22764 = visible;
+         if (this.skinField != null) {
+            this.skinField.field_22764 = visible;
+         }
       }
    }
 
@@ -1028,9 +1011,7 @@ public class HomeScreen extends class_437 {
       this.text(context, name, 691.0F - this.textWidth(name, 1.15F) / 2.0F, 272.0F, 1.15F, -855051);
       this.text(context, "Drag to spin", 691.0F - this.textWidth("Drag to spin", 0.85F) / 2.0F, 286.0F, 0.85F, -7367779);
       this.text(context, "NAME", 616.0F, 297.0F, 0.72F, -7367779);
-      this.text(context, "SKIN", 616.0F, 333.0F, 0.72F, -7367779);
       this.fieldBox(context, "nameBox", 614, 307, this.nameField != null && this.nameField.method_25370());
-      this.fieldBox(context, "skinBox", 614, 343, this.skinField != null && this.skinField.method_25370());
    }
 
    private void fieldBox(class_332 context, String key, int x, int y, boolean focused) {

@@ -7,7 +7,6 @@ import dev.violet.mixin.MultiplayerScreenAccessor;
 import dev.violet.mixin.ServerEntryAccessor;
 import dev.violet.modules.MainMenu;
 import dev.violet.modules.NameTags;
-import dev.violet.modules.SkinChange;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -666,8 +665,7 @@ public class MultiplayerGridScreen extends class_500 {
    }
 
    private class_8685 worn(class_8685 original) {
-      SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-      return skins != null && skins.isActive() ? skins.selfSkin(original) : original;
+      return original;
    }
 
    private static String clock() {

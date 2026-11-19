@@ -13,7 +13,6 @@ import dev.violet.module.Status;
 import dev.violet.modules.ClickGui;
 import dev.violet.modules.Configs;
 import dev.violet.modules.Hud;
-import dev.violet.modules.SkinChange;
 import dev.violet.render.Color;
 import dev.violet.setting.BlockListSetting;
 import dev.violet.setting.BoolSetting;
@@ -1277,10 +1276,6 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
          }
 
          class_8685 textures = this.skin.get();
-         SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-         if (textures != null && skins != null && skins.isActive()) {
-            textures = skins.selfSkin(textures);
-         }
 
          if (textures != null && this.alpha > 0.6F) {
             Avatars.draw(context, textures, Math.round(chipX + 8.0F), Math.round(y + 6.0F), 22);
@@ -1474,12 +1469,11 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
          if (shown == 0) {
             String title = "NO CONFIGS YET";
             this.text(context, title, x + (w - this.textWidth(title)) / 2, y + 110, TEXT);
-            String hint = this.fit("Save your setup with + Add Config, or copy a code like CP-123456 and press Import.", w - 24);
+            String hint = this.fit("Save your setup with + Add Config, or copy a config a friend sent you and press Import.", w - 24);
             this.text(context, hint, x + (w - this.textWidth(hint)) / 2, y + 126, MUTED);
          }
 
          int fieldW = 196;
-         this.drawSetting(context, configs.shareName, x + w - 9 - fieldW, (float)(y + 254 - 22), fieldW, mouseX, mouseY, y, y + 254);
          String footer = configs.busy() ? "Connecting..." : "Double click a name to rename it.";
          this.text(context, this.fit(footer, w - 32 - fieldW), x + 12, y + 254 - 16, MUTED);
          this.alpha = previous;

@@ -24,26 +24,6 @@ public record Lyrics(Lyrics.Status status, SyncedLyrics synced, List<String> pla
       this.sourceId = sourceId;
    }
 
-   public static Lyrics of(LrclibTrack track) {
-      if (track == null) {
-         return NOT_FOUND;
-      } else {
-         SyncedLyrics synced = SyncedLyrics.parse(track.syncedLyrics());
-         List<String> plain = plainLines(track.plainLyrics());
-         if (plain.isEmpty() && synced.isEmpty()) {
-            plain = plainLines(track.syncedLyrics());
-         }
-
-         if (!synced.isEmpty() && !synced.texts().isEmpty()) {
-            return new Lyrics(Lyrics.Status.SYNCED, synced, plain.isEmpty() ? synced.texts() : plain, track.id());
-         } else if (!plain.isEmpty()) {
-            return new Lyrics(Lyrics.Status.PLAIN, SyncedLyrics.EMPTY, plain, track.id());
-         } else {
-            return !track.instrumental() && synced.size() <= 0 ? NOT_FOUND : new Lyrics(Lyrics.Status.INSTRUMENTAL, SyncedLyrics.EMPTY, List.of(), track.id());
-         }
-      }
-   }
-
    static List<String> plainLines(String text) {
       if (text != null && !text.isBlank()) {
          List<String> lines = new ArrayList<>();

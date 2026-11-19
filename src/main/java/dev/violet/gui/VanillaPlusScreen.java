@@ -2,7 +2,6 @@ package dev.violet.gui;
 
 import dev.violet.SoberClient;
 import dev.violet.modules.MainMenu;
-import dev.violet.modules.SkinChange;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -294,7 +293,7 @@ public final class VanillaPlusScreen extends class_437 {
          image(context, BrandTextures.fit("wordmark", wordW * ppu), (float)this.field_22789 / 2.0F - wordW / 2.0F, wordTop, wordW, wordH, this.c(-1));
       }
 
-      String tag = "DISCORD.GG/VIOLETT  ·  " + class_155.method_16673().comp_4025();
+      String tag = "COPIUM CLIENT  ·  " + class_155.method_16673().comp_4025();
       float sw = CrispText.width(tag, "geist-medium.ttf", 6.2F, 0.22F);
       float ty = Math.min(wordTop + wordH + 6.0F, (float)this.buttonTop - 4.0F);
       CrispText.draw(context, tag, "geist-medium.ttf", (float)this.field_22789 / 2.0F - sw / 2.0F, ty, 6.2F, 0.22F, this.c(-926370561));
@@ -359,10 +358,6 @@ public final class VanillaPlusScreen extends class_437 {
 
          try {
             class_8685 textures = this.skin == null ? null : this.skin.get();
-            SkinChange skins = SoberClient.MODULES.get(SkinChange.class);
-            if (textures != null && skins != null && skins.isActive()) {
-               textures = skins.selfSkin(textures);
-            }
 
             if (textures != null && this.fade > 0.6F) {
                Avatars.draw(context, textures, chipX + 4, chipY + 3, 10);

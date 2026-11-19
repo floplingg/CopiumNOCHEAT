@@ -76,18 +76,20 @@ public final class SpotifyPlayer extends BusModule {
    private long lastKeyAt;
 
    public SpotifyPlayer() {
-      super("spotify-player", "Spotify Player", "Shows what Spotify is playing, with synced lyrics and optional media keys.", ModuleCategory.CLIENT);
+      super("spotify-player", "Spotify Player", "Shows what Spotify is playing, with album art, progress and optional media keys.", ModuleCategory.CLIENT);
       this.usesNotifications();
       this.artistColor.visibleWhen(this.showArtist::get);
-      this.lyricsColor.visibleWhen(() -> this.showLyrics.get() && !this.lyricHighlight.is("Line"));
-      this.upcomingLyricsColor.visibleWhen(this.showLyrics::get);
-      this.highlightColor.visibleWhen(() -> this.showLyrics.get() && !this.lyricHighlight.is("Off"));
-      this.lyricLines.visibleWhen(this.showLyrics::get);
-      this.lyricMotion.visibleWhen(this.showLyrics::get);
-      this.lyricHighlight.visibleWhen(this.showLyrics::get);
-      this.lyricsOnline.visibleWhen(() -> this.showLyrics.get() || this.skyLyrics.get());
-      this.skySize.visibleWhen(this.skyLyrics::get);
-      this.skyHeight.visibleWhen(this.skyLyrics::get);
+      this.showLyrics.visibleWhen(() -> false);
+      this.skyLyrics.visibleWhen(() -> false);
+      this.lyricsColor.visibleWhen(() -> false && !this.lyricHighlight.is("Line"));
+      this.upcomingLyricsColor.visibleWhen(() -> false);
+      this.highlightColor.visibleWhen(() -> false && !this.lyricHighlight.is("Off"));
+      this.lyricLines.visibleWhen(() -> false);
+      this.lyricMotion.visibleWhen(() -> false);
+      this.lyricHighlight.visibleWhen(() -> false);
+      this.lyricsOnline.visibleWhen(() -> false || false);
+      this.skySize.visibleWhen(() -> false);
+      this.skyHeight.visibleWhen(() -> false);
       this.lyricsOnline.onChange(() -> {
          SpotifyPlayer.Poller running = this.poller;
          if (running != null) {
@@ -187,7 +189,7 @@ public final class SpotifyPlayer extends BusModule {
    }
 
    public boolean wantsLyrics(NowPlaying now) {
-      return (this.showLyrics.get() || this.skyLyrics.get()) && now != null && now.lyricsEligible();
+      return (false || false) && now != null && now.lyricsEligible();
    }
 
    public boolean showArtist() {
@@ -207,11 +209,11 @@ public final class SpotifyPlayer extends BusModule {
    }
 
    public boolean showLyrics() {
-      return this.showLyrics.get() && !this.skyLyrics.get();
+      return false && !false;
    }
 
    public boolean skyLyrics() {
-      return this.skyLyrics.get();
+      return false;
    }
 
    public float skySize() {

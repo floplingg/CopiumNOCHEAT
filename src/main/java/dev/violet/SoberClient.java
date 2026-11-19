@@ -26,7 +26,6 @@ import dev.violet.modules.CustomGlint;
 import dev.violet.modules.CustomInventory;
 import dev.violet.modules.CustomModels;
 import dev.violet.modules.CustomSkin;
-import dev.violet.modules.DiscordPresence;
 import dev.violet.modules.FpsBooster;
 import dev.violet.modules.Glass;
 import dev.violet.modules.Hotkeys;
@@ -38,7 +37,6 @@ import dev.violet.modules.MediaHider;
 import dev.violet.modules.MotionBlur;
 import dev.violet.modules.NameTags;
 import dev.violet.modules.RegionMap;
-import dev.violet.modules.SkinChange;
 import dev.violet.modules.Sky;
 import dev.violet.modules.SpotifyPlayer;
 import dev.violet.modules.StepTiles;
@@ -161,7 +159,6 @@ public class SoberClient implements ClientModInitializer {
       MODULES.add(new CsPickaxe());
       MODULES.add(new CustomAccessories());
       MODULES.add(new CustomSkin());
-      MODULES.add(new SkinChange());
       MODULES.add(new NameTags());
       MODULES.add(new StepTiles());
       MODULES.add(new JumpCircles());
@@ -172,7 +169,6 @@ public class SoberClient implements ClientModInitializer {
          }
       });
       ClickGuiKey.register();
-      DiscordPresence presence = new DiscordPresence();
       ClientLifecycleEvents.CLIENT_STARTED.register((ClientStarted)client -> {
          renderer = new Render3D();
          CONFIG.load();
@@ -196,11 +192,9 @@ public class SoberClient implements ClientModInitializer {
 
          MODULES.get(CustomGlint.class).sync();
          ClickGuiKey.sync(client);
-         presence.setEnabled(true);
          BrandWindow.apply(client);
       });
       ClientLifecycleEvents.CLIENT_STOPPING.register((ClientStopping)client -> {
-         presence.setEnabled(false);
          CONFIG.save();
          HudLayout.save();
       });

@@ -46,6 +46,11 @@ jobs:
             echo "::error::Scripts, executables or nested jars found in the jar"; exit 1
           fi
           echo "No scripts, executables or nested jars in the jar."
+          mkdir -p /tmp/jarcheck && unzip -q -o "$JAR" 'dev/*' -d /tmp/jarcheck
+          if grep -rlaE "java/net/http/HttpClient|java/net/HttpURLConnection|java/net/Socket|openConnection|https?://" /tmp/jarcheck/dev; then
+            echo "::error::Copium code contains network access or web addresses"; exit 1
+          fi
+          echo "No network access in Copium's code."
 
       - name: Upload jar
         uses: actions/upload-artifact@v4

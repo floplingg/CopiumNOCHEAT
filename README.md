@@ -3,7 +3,8 @@
 A **visuals-only** Fabric client for Minecraft **1.21.11**, forked from
 [SoberClient](upstream/SoberClient-NOTICE.md) by Violet with every cheat removed.
 
-No ESP, no movement or combat hacks, no macros, no auto-updater, no telemetry.
+No ESP, no movement or combat hacks, no macros, no auto-updater, no telemetry,
+and **no internet connections at all**: Copium's code never goes online.
 
 ## Download
 
@@ -20,10 +21,10 @@ Open the menu with **Right Shift**.
 |---|---|
 | World | Animated skies (aurora, galaxy, synthwave, black hole, sakura, …), motion blur, step tiles, jump circles, block outline |
 | Items | Custom enchant glints and item aura, custom 3D item models, CS-style knife pickaxe, swing animations |
-| Player | Capes, glass player effect, custom 3D skin model, skin changer, accessories, your own name tag (only you see these) |
+| Player | Capes, glass player effect, custom 3D skin model, accessories, your own name tag (only you see these) |
 | HUD | Watermark, FPS/BPS/TPS, coordinates, module list, keystrokes, inventory, hotkeys, notifications, region map |
 | Screens | Custom title screens (Copium, Island, Home, Vanilla+), themed inventories, animated chat typing, aspect ratio |
-| Other | Custom crosshairs, zoom (C), Spotify player with synced lyrics, creamy keyboard sounds, media hider, FPS booster, 5 config slots with share codes (`CP-…`), Discord status |
+| Other | Custom crosshairs, zoom (C), Spotify player (song, artist, album art, progress, media keys), creamy keyboard sounds, media hider, FPS booster, 5 config slots you can share as copy-paste text |
 
 ## What was removed
 
@@ -38,12 +39,17 @@ Everything that gives an advantage or automates gameplay:
 
 The build checks every jar for these classes and fails if any come back.
 
-## Discord status
+## Offline by design
 
-Copium does not use SoberClient's Discord app. To show "Playing Copium Client":
-create an app at <https://discord.com/developers/applications>, name it
-*Copium Client*, upload an icon, then paste its **Application ID** into
-**Discord Presence → Application ID** in the client.
+Copium has no network code. These SoberClient features were removed because they went online:
+
+- **Discord status** (talked to Discord's API and the Discord app)
+- **Skin Changer** (downloaded other players' skins from Mojang)
+- **Spotify lyrics** (downloaded lyrics from lrclib.net); the Spotify player still shows the song
+- **Config share codes** (uploaded configs to textdb.online); configs are now shared as copy-paste text
+
+The build fails if any network access or web address appears in Copium's code.
+Minecraft itself still connects to Mojang and to servers as normal.
 
 ## Building
 
