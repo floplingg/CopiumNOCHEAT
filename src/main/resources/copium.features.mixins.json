@@ -9,8 +9,6 @@
     "NetworkEventsMixin",
     "PacketEventsMixin",
     "PlayerMoveEventsMixin",
-    "SkinChangeHandMixin",
-    "SkinChangeRendererMixin",
     "WorldUpdateEventsMixin"
   ],
   "injectors": {
