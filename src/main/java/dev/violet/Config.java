@@ -24,7 +24,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public final class Config {
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-   private static final Map<String, String> LEGACY = Map.of("Relog Method", "Y Relog", "SusChunks", "Better Sus Chunk");
+   private static final Map<String, String> LEGACY = Map.of();
    private static final int BACKUPS = 5;
    private final Path file = FabricLoader.getInstance().getConfigDir().resolve("copium.json");
    private final Path backups = FabricLoader.getInstance().getConfigDir().resolve("violet").resolve("backups");

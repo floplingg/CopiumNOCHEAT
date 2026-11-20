@@ -22,7 +22,7 @@ import net.minecraft.class_437;
 public final class PanelScreen extends class_437 {
    private static final ExactImage WORDMARK = new ExactImage("textures/brand/lockup.png");
    private static final Category[] SIDEBAR = new Category[]{
-      Category.BASE_FINDING, Category.VISUALS, Category.MOVEMENT, Category.CLIENT, Category.DONUT, Category.COMBAT
+      Category.VISUALS, Category.CLIENT
    };
    private static final int TOP_H = 30;
    private static final int SIDE_W = 122;
@@ -41,8 +41,7 @@ public final class PanelScreen extends class_437 {
       true, -723723, -7434602, -10724252, 284488949, 485815541, -14013906, -12237491, 653587701, 217380085, -723723, 821359861, -723723, false, -723723
    );
    private static PanelScreen.Tab tab = PanelScreen.Tab.MODULES;
-   private static Category category = Category.BASE_FINDING;
-   private static boolean acUnlocked;
+   private static Category category = Category.VISUALS;
    private final List<PanelScreen.Hit> hits = new ArrayList<>();
    private final Map<PanelScreen.Key, Float> animations = new HashMap<>();
    private final SettingsPane pane = new SettingsPane(this);
@@ -372,14 +371,10 @@ public final class PanelScreen extends class_437 {
 
          int color = MenuKit.lerp(-4934468, -723723, Math.max(on, hv * 0.6F));
          Icons.draw(context, MenuKit.icon(cat), Math.round(x + 9.0F), Math.round(sy + 6.0F), 10, this.c(color));
-         String title = cat == Category.MOVEMENT ? "AC Off" : cat.title;
+         String title = cat.title;
          this.text(context, title, "geist-semibold.ttf", x + 25.0F, sy + 14.4F, 7.2F, color);
-         if (cat == Category.MOVEMENT && !acUnlocked) {
-            this.lock(context, x + w - 11.0F, sy + h / 2.0F - 1.5F, 6.5F, -7434602);
-         } else {
-            String n = Integer.toString(count(cat));
-            this.text(context, n, "geist-medium.ttf", x + w - 8.0F - width(n, "geist-medium.ttf", 6.4F), sy + 14.2F, 6.4F, -10724252);
-         }
+         String n = Integer.toString(count(cat));
+         this.text(context, n, "geist-medium.ttf", x + w - 8.0F - width(n, "geist-medium.ttf", 6.4F), sy + 14.2F, 6.4F, -10724252);
 
          this.hit("cat", x, sy, w, h, cat);
          sy += h + 5.0F;
@@ -404,16 +399,13 @@ public final class PanelScreen extends class_437 {
          this.text(context, count, "geist-medium.ttf", (float)(cx + gw) - countW, (float)bodyY + 21.5F, 6.4F, -10724252);
       }
 
-      boolean locked = category == Category.MOVEMENT && !acUnlocked && this.search.isEmpty();
       this.gridX = cx;
       this.gridY = bodyY + 36;
       this.gridW = gw;
       this.gridH = this.wy + this.wh - 10 - 16 - this.gridY;
       String hint = fit("Left click toggles  ·  Right click opens settings  ·  Middle click binds a key", "geist-medium.ttf", (float)gw, 6.4F);
       this.text(context, hint, "geist-medium.ttf", (float)cx, (float)(this.wy + this.wh - 10), 6.4F, -10724252);
-      if (locked) {
-         this.drawLock(context, cx, cw, mouseX, mouseY);
-      } else {
+      {
          this.drawGrid(context, modules, mouseX, mouseY);
          if (this.selected != null) {
             this.drawDrawer(context, cx + gw + 10, bodyY + 10, cw - gw - 10, this.wy + this.wh - 10 - (bodyY + 10), mouseX, mouseY);
@@ -556,36 +548,6 @@ public final class PanelScreen extends class_437 {
       this.pane.render(context, x + 10, y + 44, w - 22, h - 50, mouseX, mouseY, this.alpha, this.delta);
    }
 
-   private void drawLock(class_332 context, int cx, int cw, int mouseX, int mouseY) {
-      float mid = (float)cx + (float)cw / 2.0F;
-      float top = (float)this.gridY + Math.max(16.0F, (float)this.gridH * 0.22F);
-      this.lock(context, mid, top, 13.0F, -723723);
-      String title = "AC Off";
-      this.text(context, title, "geist-semibold.ttf", mid - width(title, "geist-semibold.ttf", 10.0F) / 2.0F, top + 26.0F, 10.0F, -723723);
-      String[] lines = new String[]{"Anticheats can easily spot these modules.", "Only use them on servers where the anticheat is off."};
-
-      for (int i = 0; i < lines.length; i++) {
-         this.text(context, lines[i], "geist-medium.ttf", mid - width(lines[i], "geist-medium.ttf", 6.8F) / 2.0F, top + 42.0F + (float)(i * 11), 6.8F, -7434602);
-      }
-
-      float bw = 96.0F;
-      float bh = 20.0F;
-      float by = top + 70.0F;
-      float gap = 8.0F;
-      float ax = mid - bw - gap / 2.0F;
-      float bx = mid + gap / 2.0F;
-      boolean overCancel = (float)mouseX >= ax && (float)mouseX < ax + bw && (float)mouseY >= by && (float)mouseY < by + bh;
-      boolean overOpen = (float)mouseX >= bx && (float)mouseX < bx + bw && (float)mouseY >= by && (float)mouseY < by + bh;
-      Mono.box(context, Math.round(ax), Math.round(by), Math.round(bw), Math.round(bh), this.anim("lockCancel", this, overCancel, 14.0F), this.alpha);
-      Mono.primary(context, Math.round(bx), Math.round(by), Math.round(bw), Math.round(bh), this.anim("lockOpen", this, overOpen, 14.0F), this.alpha);
-      String cancel = "Cancel";
-      String openLabel = "Show modules";
-      this.text(context, cancel, "geist-semibold.ttf", ax + (bw - width(cancel, "geist-semibold.ttf", 7.2F)) / 2.0F, by + 13.2F, 7.2F, -723723);
-      this.text(context, openLabel, "geist-semibold.ttf", bx + (bw - width(openLabel, "geist-semibold.ttf", 7.2F)) / 2.0F, by + 13.2F, 7.2F, -15856112);
-      this.hit("lockCancel", ax, by, bw, bh, null);
-      this.hit("lockOpen", bx, by, bw, bh, null);
-   }
-
    private void drawTabSettings(class_332 context, int mouseX, int mouseY) {
       Module module = tabModule(tab);
       if (module != null) {
@@ -682,13 +644,6 @@ public final class PanelScreen extends class_437 {
                         this.pane.show(null);
                         UiSounds.click();
                         break;
-                     case "lockCancel":
-                        category = Category.BASE_FINDING;
-                        UiSounds.click();
-                        break;
-                     case "lockOpen":
-                        acUnlocked = true;
-                        UiSounds.click();
                   }
 
                   return true;

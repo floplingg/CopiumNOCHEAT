@@ -424,13 +424,9 @@ public final class DropdownScreen extends class_437 implements ModuleMenu {
 
    private void icon(class_332 context, Category item, int x, int y, int size) {
       String name = switch (item) {
-         case BASE_FINDING -> "boxes";
-         case DONUT -> "crown";
-         case COMBAT -> "flame";
          case VISUALS -> "sparkles";
          case CLIENT -> "box";
          case CONFIG -> "config";
-         case MOVEMENT -> "lock";
       };
       context.method_25293(
          MenuKit.ICON_PIPELINE,

@@ -352,11 +352,7 @@ public final class MenuKit {
 
    static Icons.Icon icon(Category category) {
       return switch (category) {
-         case BASE_FINDING -> Icons.Icon.SEARCH;
-         case DONUT -> Icons.Icon.DONUT;
-         case COMBAT -> Icons.Icon.SWORD;
          case VISUALS -> Icons.Icon.EYE;
-         case MOVEMENT -> Icons.Icon.SPEED;
          case CLIENT -> Icons.Icon.GEAR;
          case CONFIG -> Icons.Icon.COLUMNS;
       };
@@ -372,8 +368,6 @@ public final class MenuKit {
          return Icons.Icon.CROWN;
       } else if (name.contains("crosshair")) {
          return Icons.Icon.CROSSHAIR;
-      } else if (name.contains("freecam")) {
-         return Icons.Icon.CAMERA;
       } else if (name.contains("jump circle")) {
          return Icons.Icon.RINGS;
       } else if (name.contains("name tag")) {
@@ -386,17 +380,17 @@ public final class MenuKit {
          return Icons.Icon.CLOUD;
       } else if (name.contains("key") || name.contains("typing")) {
          return Icons.Icon.KEY;
-      } else if (name.contains("blur") || name.contains("speed") || name.contains("fly") || name.contains("sprint")) {
+      } else if (name.contains("blur")) {
          return Icons.Icon.SPEED;
-      } else if (name.contains("look") || name.contains("esp") || name.contains("inspector") || name.contains("hider")) {
+      } else if (name.contains("hider")) {
          return Icons.Icon.EYE;
-      } else if (name.contains("overlay") || name.contains("model") || name.contains("chunk")) {
+      } else if (name.contains("overlay") || name.contains("model")) {
          return Icons.Icon.CUBE;
-      } else if (name.contains("tool") || name.contains("mine")) {
+      } else if (name.contains("pickaxe")) {
          return Icons.Icon.PICKAXE;
-      } else if (name.contains("sell") || name.contains("shop") || name.contains("auction") || name.contains("inventory")) {
+      } else if (name.contains("inventory")) {
          return Icons.Icon.CHEST;
-      } else if (name.contains("beam") || name.contains("live") || name.contains("notifier")) {
+      } else if (name.contains("notifier")) {
          return Icons.Icon.PULSE;
       } else if (name.contains("hud") || name.contains("menu") || name.contains("spotify") || name.contains("map")) {
          return Icons.Icon.WINDOW;
@@ -404,10 +398,8 @@ public final class MenuKit {
          return Icons.Icon.GRID;
       } else if (name.contains("config")) {
          return Icons.Icon.COLUMNS;
-      } else if (name.contains("totem") || name.contains("crystal") || name.contains("anchor")) {
-         return Icons.Icon.SPARKLE;
       } else {
-         return !name.contains("rtp") && !name.contains("relog") ? icon(module.category) : Icons.Icon.CHEVRONS;
+         return icon(module.category);
       }
    }
 
